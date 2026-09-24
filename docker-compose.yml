@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # Nginx Proxy Manager
+  # ==========================================
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - web_network
+
+  # ==========================================
+  # Fragrance E-commerce Demo App
+  # ==========================================
+  portal-app:
+    image: 'ecommerce_demo:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRY=${JWT_EXPIRY:-3600}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_SECRET=${GOOGLE_SECRET}
+      - ASAAS_API_KEY=${ASAAS_API_KEY}
+      - ASSAAS_WEBHOOK_TOKEN=${ASSAAS_WEBHOOK_TOKEN}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME}
+      - NEXT_PUBLIC_SITE_URL=${SITE_URL}
+      - MCP_ADMIN_TOKEN=${MCP_ADMIN_TOKEN}
+    deploy:
+      mode: replicated
+      replicas: 1
+    networks:
+      - web_network
+    volumes:
+      - backups_data:/backups
+
+  # ==========================================
+  # PostgreSQL (substitui Supabase)
+  # ==========================================
+  db:
+    image: postgres:15-alpine
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -h 127.0.0.1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - web_network
+    deploy:
+      replicas: 1
+
+volumes:
+  npm_data:
+  npm_letsencrypt:
+  pg_data:
+  backups_data:
+
+networks:
+  web_network:
+    driver: overlay

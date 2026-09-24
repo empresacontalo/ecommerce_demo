@@ -1,0 +1,49 @@
+# Secrets & Keys (Strictly forbidden from Git tracking)
+keys/
+*.pem
+*.key
+*.env
+*.env*.local
+.env.production
+
+# Reference / Temporary Source Clones
+exemplo/
+scratch/
+
+# Dependencies & Build artifacts
+node_modules/
+/.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Next.js build
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# Testing & Coverage
+coverage/
+.vitest/
+
+# OS and Editor metadata
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
