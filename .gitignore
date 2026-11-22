@@ -6,6 +6,20 @@ keys/
 *.env*.local
 .env.production
 
+# Sensitive .txt files containing credentials and configurations
+*.txt
+/agente.txt
+/asaas_oficial.txt
+/caixa_chatwoot.txt
+/campanhas.txt
+/chatwoot.txt
+/github.txt
+/novas_orientacoes.txt
+/openai.txt
+/portainer.txt
+/orientacoes.txt
+/base.txt
+
 # Reference / Temporary Source Clones
 exemplo/
 scratch/
