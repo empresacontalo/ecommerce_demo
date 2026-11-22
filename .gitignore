@@ -23,6 +23,7 @@ keys/
 # Reference / Temporary Source Clones
 exemplo/
 scratch/
+graphify-out/
 
 # Dependencies & Build artifacts
 node_modules/
