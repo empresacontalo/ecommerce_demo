@@ -7,14 +7,17 @@ import { createClient } from '@/utils/auth/client';
 import { getDraft, replayDraft, setDraftResult } from '@/utils/admin-draft';
 import AuthLogo from '@/components/AuthLogo';
 
+const DEMO_EMAIL = 'demo@aurafragrances.demo';
+const DEMO_PASSWORD = 'DemoView2026!';
+
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get('next') || '/';
   const sessionExpired = searchParams.get('reason') === 'session';
   const client = createClient();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(DEMO_EMAIL);
+  const [password, setPassword] = useState(DEMO_PASSWORD);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -39,7 +42,8 @@ function LoginContent() {
         const r = await replayDraft(draft);
         setDraftResult(r.ok);
       }
-      const target = draft?.path || next;
+      const isDemo = email.trim().toLowerCase() === DEMO_EMAIL;
+      const target = draft?.path || (isDemo && next === '/' ? '/admin' : next);
       router.push(target);
       router.refresh();
     }
@@ -70,8 +74,23 @@ function LoginContent() {
         <div className="auth-logo">
           <AuthLogo />
         </div>
-        <h1 className="auth-title">Bem-vinda de volta</h1>
-        <p className="auth-subtitle">Acesse sua conta para continuar</p>
+        <h1 className="auth-title">Welcome Back</h1>
+        <p className="auth-subtitle">Sign in to access your account or explore the Read-Only Admin Panel</p>
+
+        <div
+          style={{
+            background: 'rgba(212, 175, 55, 0.12)',
+            border: '1px solid rgba(212, 175, 55, 0.35)',
+            borderRadius: '10px',
+            padding: '0.7rem 0.9rem',
+            marginBottom: '1rem',
+            fontSize: '0.82rem',
+            color: '#f5d77f',
+            lineHeight: 1.45,
+          }}
+        >
+          <strong>👁️ Read-Only Demo Account Pre-Filled:</strong> Just click <strong>Sign In</strong> to inspect the Admin Panel safely (all modifications and secrets are blocked server-side).
+        </div>
 
         {error && (
           <div className="auth-error" role="alert">{error}</div>
@@ -79,19 +98,18 @@ function LoginContent() {
 
         {sessionExpired && (
           <div className="auth-warning" role="status">
-            Sua sessão expirou. Os dados que você estava salvando foram preservados e serão
-            salvos automaticamente após o login.
+            Your session expired. Any unsaved changes were preserved and will be saved automatically after signing in.
           </div>
         )}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="auth-email">E-mail</label>
+            <label htmlFor="auth-email">Email</label>
             <input
               id="auth-email"
               className="input"
               type="email"
-              placeholder="seu@email.com"
+              placeholder="you@example.com"
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -99,8 +117,8 @@ function LoginContent() {
           </div>
           <div className="input-group">
             <label htmlFor="auth-password">
-              Senha
-              <Link href="/auth/recuperar-senha" className="auth-forgot">Esqueceu?</Link>
+              Password
+              <Link href="/auth/recuperar-senha" className="auth-forgot">Forgot?</Link>
             </label>
             <input
               id="auth-password"
@@ -113,11 +131,11 @@ function LoginContent() {
             />
           </div>
           <button type="submit" className="btn btn-gold btn-lg auth-submit" disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <div className="auth-divider">ou</div>
+        <div className="auth-divider">or</div>
 
         <button
           type="button"
@@ -132,12 +150,12 @@ function LoginContent() {
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
           </svg>
-          Entrar com Google
+          Continue with Google
         </button>
 
         <p className="auth-footer-text">
-          Não tem conta?{' '}
-          <Link href={`/auth/registro${next ? `?next=${encodeURIComponent(next)}` : ''}`} className="auth-link">Criar conta</Link>
+          Don&apos;t have an account?{' '}
+          <Link href={`/auth/registro${next ? `?next=${encodeURIComponent(next)}` : ''}`} className="auth-link">Create account</Link>
         </p>
       </div>
     </div>
@@ -146,7 +164,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <LoginContent />
     </Suspense>
   );

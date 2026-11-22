@@ -72,10 +72,33 @@ The platform includes a full operational back-office protected by JWT session gu
 
 > **Try the Live Admin Panel (Read-Only Evaluator Access):**  
 > - **URL:** [https://demo.digitalarea.online/admin](https://demo.digitalarea.online/admin)  
-> - **Email:** `demo@aurafragrances.demo`  
-> - **Password:** `DemoView2026!`  
+> - **Email:** `demo@aurafragrances.demo` *(pre-filled by default on the login page)*  
+> - **Password:** `DemoView2026!` *(pre-filled by default on the login page)*  
 >
 > *Security note: This demo account is strictly **read-only** and enforced server-side in middleware (`HTTP 403` on all `POST`/`PUT`/`PATCH`/`DELETE` requests). Sensitive credentials, MCP tokens, backup downloads, and customer PII are automatically redacted or blocked.*
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/assets/admin-dashboard.png" alt="Admin Dashboard (Read-Only Demo Mode)" width="100%" />
+      <p align="center"><sub><strong>Operations Dashboard & Read-Only Guard</strong> (<code>/admin</code>)</sub></p>
+    </td>
+    <td width="50%">
+      <img src="docs/assets/admin-products.png" alt="Admin Products & Inventory" width="100%" />
+      <p align="center"><sub><strong>Catalog & Inventory Management</strong> (<code>/admin/produtos</code>)</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/assets/admin-content.png" alt="Admin Dynamic CMS" width="100%" />
+      <p align="center"><sub><strong>Dynamic CMS & Page Blocks</strong> (<code>/admin/conteudo</code>)</sub></p>
+    </td>
+    <td width="50%">
+      <img src="docs/assets/admin-audit.png" alt="Admin Audit Logs" width="100%" />
+      <p align="center"><sub><strong>Governance & Audit Trail</strong> (<code>/admin/auditoria</code>)</sub></p>
+    </td>
+  </tr>
+</table>
 
 | Module | Route | What It Controls |
 | :--- | :--- | :--- |
