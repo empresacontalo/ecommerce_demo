@@ -1,5 +1,7 @@
-export const CHATWOOT_BASE_URL = 'https://chat.digitalarea.online';
-export const CHATWOOT_WEBSITE_TOKEN = 'imdQDoR7zDeFsatMR3xiseUQ';
+export const CHATWOOT_BASE_URL =
+  process.env.NEXT_PUBLIC_CHATWOOT_BASE_URL || 'https://chat.digitalarea.online';
+export const CHATWOOT_WEBSITE_TOKEN =
+  process.env.NEXT_PUBLIC_CHATWOOT_WEBSITE_TOKEN || '';
 
 export const CHATWOOT_SETTINGS = {
   position: 'right',
@@ -7,7 +9,5 @@ export const CHATWOOT_SETTINGS = {
   hideMessageBubble: true,
   darkMode: 'dark',
   launcherTitle: '',
-  // Traduz os textos do widget (ex: "Typically replies in a few minutes" →
-  // "Normalmente responde em poucos minutos") para o idioma do cliente.
-  locale: 'pt_BR',
+  locale: 'en',
 } as const;

@@ -2,6 +2,41 @@ import { NextResponse } from 'next/server';
 import { getConfiguracao } from '@/app/actions/cms';
 import { CHATWOOT_BASE_URL, CHATWOOT_WEBSITE_TOKEN } from '@/utils/chatwoot-config';
 
+async function resolveChatwootConfig(): Promise<{ baseUrl: string; websiteToken: string }> {
+  const [urlCfg, tokenCfg] = await Promise.all([
+    getConfiguracao('chatwoot.url'),
+    getConfiguracao('chatwoot.token'),
+  ]);
+  const baseUrl = (
+    (urlCfg?.valor as string) ||
+    process.env.NEXT_PUBLIC_CHATWOOT_BASE_URL ||
+    CHATWOOT_BASE_URL
+  ).replace(/\/$/, '');
+  const websiteToken =
+    (tokenCfg?.valor as string) ||
+    process.env.NEXT_PUBLIC_CHATWOOT_WEBSITE_TOKEN ||
+    process.env.CHATWOOT_API_TOKEN ||
+    CHATWOOT_WEBSITE_TOKEN;
+  return { baseUrl, websiteToken };
+}
+
+/**
+ * Retorna a configuração pública do widget Chatwoot (URL base e websiteToken)
+ * resolvida em tempo de execução (CMS → env → fallback).
+ */
+export async function GET() {
+  try {
+    const cfg = await resolveChatwootConfig();
+    return NextResponse.json(cfg, { headers: { 'Cache-Control': 'no-store' } });
+  } catch (err) {
+    console.error('[chatwoot/pedir] erro ao resolver config:', err);
+    return NextResponse.json({
+      baseUrl: (process.env.NEXT_PUBLIC_CHATWOOT_BASE_URL || CHATWOOT_BASE_URL).replace(/\/$/, ''),
+      websiteToken: process.env.NEXT_PUBLIC_CHATWOOT_WEBSITE_TOKEN || CHATWOOT_WEBSITE_TOKEN,
+    });
+  }
+}
+
 /**
  * Cria uma conversa no Chatwoot (mesmo fluxo do widget) e envia a mensagem
  * do cliente. Se `mensagem` for informado (ex: solicitação de agendamento),
@@ -16,12 +51,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'nome é obrigatório' }, { status: 400 });
     }
 
-    const [urlCfg, tokenCfg] = await Promise.all([
-      getConfiguracao('chatwoot.url'),
-      getConfiguracao('chatwoot.token'),
-    ]);
-    const baseUrl = ((urlCfg?.valor as string) || CHATWOOT_BASE_URL).replace(/\/$/, '');
-    const websiteToken = (tokenCfg?.valor as string) || process.env.CHATWOOT_API_TOKEN || CHATWOOT_WEBSITE_TOKEN;
+    const { baseUrl, websiteToken } = await resolveChatwootConfig();
     if (!websiteToken) {
       console.error('[chatwoot/pedir] token do chatwoot não configurado');
       return NextResponse.json({ error: 'Chat não configurado' }, { status: 500 });

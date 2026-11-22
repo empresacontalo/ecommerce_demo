@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Script from 'next/script';
 import {
   CHATWOOT_BASE_URL,
   CHATWOOT_SETTINGS,
   CHATWOOT_WEBSITE_TOKEN,
 } from '@/utils/chatwoot-config';
-import { getConfig } from '@/utils/empresa';
 
 type ChatwootWindow = Window & {
   $chatwoot?: { toggle: () => void };
+  chatwootSettings?: typeof CHATWOOT_SETTINGS;
+  chatwootSDK?: { run: (opts: { websiteToken: string; baseUrl: string }) => void };
 };
 
 /**
@@ -70,28 +70,54 @@ export async function abrirChatAgendamento() {
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  // Config dinâmica: prioriza o que estiver salvo no CMS (alterável via
-  // MCP/painel) e usa as constantes do código como fallback.
-  const [chatwoot, setChatwoot] = useState<{ baseUrl: string; token: string }>({
-    baseUrl: CHATWOOT_BASE_URL,
-    token: CHATWOOT_WEBSITE_TOKEN,
-  });
 
   useEffect(() => {
-    (async () => {
+    let cancelled = false;
+
+    const loadChatwoot = async () => {
+      let baseUrl = CHATWOOT_BASE_URL;
+      let token = CHATWOOT_WEBSITE_TOKEN;
+
       try {
-        const [url, token] = await Promise.all([
-          getConfig('chatwoot.url'),
-          getConfig('chatwoot.token'),
-        ]);
-        if (url || token) {
-          setChatwoot({
-            baseUrl: (url as string) || CHATWOOT_BASE_URL,
-            token: (token as string) || CHATWOOT_WEBSITE_TOKEN,
-          });
+        const res = await fetch('/api/chatwoot/pedir', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.baseUrl) baseUrl = String(data.baseUrl).replace(/\/$/, '');
+          if (data?.websiteToken) token = String(data.websiteToken);
         }
-      } catch { /* mantém fallback */ }
-    })();
+      } catch {
+        /* mantém fallback */
+      }
+
+      if (cancelled || !baseUrl || !token) return;
+
+      const w = window as ChatwootWindow;
+      w.chatwootSettings = CHATWOOT_SETTINGS;
+
+      if (w.chatwootSDK) {
+        w.chatwootSDK.run({ websiteToken: token, baseUrl });
+        return;
+      }
+
+      const existing = document.getElementById('chatwoot-sdk-script') as HTMLScriptElement | null;
+      if (existing) return;
+
+      const script = document.createElement('script');
+      script.id = 'chatwoot-sdk-script';
+      script.src = `${baseUrl}/packs/js/sdk.js`;
+      script.async = true;
+      script.onload = () => {
+        if (!cancelled && w.chatwootSDK) {
+          w.chatwootSDK.run({ websiteToken: token, baseUrl });
+        }
+      };
+      document.head.appendChild(script);
+    };
+
+    loadChatwoot();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -118,18 +144,11 @@ export default function ChatWidget() {
 
   return (
     <>
-      <Script
-        id="chatwoot-bootstrap"
-        dangerouslySetInnerHTML={{
-          __html: `window.chatwootSettings = ${JSON.stringify(CHATWOOT_SETTINGS)}; (function(d,t) { var BASE_URL=${JSON.stringify(chatwoot.baseUrl)}; var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; g.src=BASE_URL+"/packs/js/sdk.js"; g.async=true; s.parentNode.insertBefore(g,s); g.onload=function(){ window.chatwootSDK.run({ websiteToken: ${JSON.stringify(chatwoot.token)}, baseUrl: BASE_URL }) } })(document,"script");`,
-        }}
-      />
-
       {/* Botão flutuante do chat (sempre visível, acima do WhatsApp) */}
       <button
         className={`chat-toggle ${isOpen ? 'active' : ''}`}
         onClick={toggleChat}
-        aria-label={isOpen ? 'Fechar chat' : 'Abrir chat'}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
