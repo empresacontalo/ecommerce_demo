@@ -22,14 +22,14 @@ export default function CatalogFilters({ initialOrigin, initialSort, marcas = []
   return (
     <div className="filters-grid">
       <div className="filter-group">
-        <label htmlFor="origin">Marca</label>
+        <label htmlFor="origin">Brand</label>
         <select 
           id="origin" 
           value={initialOrigin}
           onChange={(e) => updateQuery('origin', e.target.value)}
           className="filter-select"
         >
-          <option value="Todos">Todas as Marcas</option>
+          <option value="Todos">All Brands</option>
           {marcas.map(m => (
             <option key={m} value={m}>{m}</option>
           ))}
@@ -37,18 +37,18 @@ export default function CatalogFilters({ initialOrigin, initialSort, marcas = []
       </div>
 
       <div className="filter-group">
-        <label htmlFor="sort">Ordenar por</label>
+        <label htmlFor="sort">Sort by</label>
         <select 
           id="sort" 
           value={initialSort}
           onChange={(e) => updateQuery('sort', e.target.value)}
           className="filter-select"
         >
-          <option value="marca">Ordem das marcas</option>
-          <option value="newest">Mais recentes</option>
-          <option value="name-asc">Nome (A–Z)</option>
-          <option value="price-asc">Menor preço</option>
-          <option value="price-desc">Maior preço</option>
+          <option value="marca">Featured Brands</option>
+          <option value="newest">Newest</option>
+          <option value="name-asc">Name (A–Z)</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
         </select>
       </div>
     </div>

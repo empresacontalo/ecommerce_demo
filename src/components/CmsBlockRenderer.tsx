@@ -389,7 +389,7 @@ function DepoimentosBlock({ bloco }: { bloco: CmsBloco }) {
 function ProdutosBlock({ bloco }: { bloco: CmsBloco }) {
   const resolve = useTokens();
   const [products, setProducts] = useState<ProdutoVitrine[]>([]);
-  const [filter, setFilter] = useState('Todos');
+  const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(true);
   const max = Number(bloco.conteudo?.max_produtos) > 0 ? Number(bloco.conteudo?.max_produtos) : 8;
   const categoria = bloco.conteudo?.categoria || '';
@@ -415,14 +415,14 @@ function ProdutosBlock({ bloco }: { bloco: CmsBloco }) {
   if (loading) return null;
   if (!products.length) return null;
 
-  const origins = ['Todos', ...new Set(products.map(p => p.origin).filter((o): o is string => !!o))];
-  const filtered = filter === 'Todos' ? products : products.filter(p => p.origin === filter);
+  const origins = ['All', ...new Set(products.map(p => p.origin).filter((o): o is string => !!o))];
+  const filtered = filter === 'All' ? products : products.filter(p => p.origin === filter);
 
   return (
     <section className="section section-alt">
       <div className="container">
         <div className="section-header reveal">
-          <h2>{resolve(bloco.conteudo?.titulo) || 'Nossos Produtos'}</h2>
+          <h2>{resolve(bloco.conteudo?.titulo) || 'Our Collection'}</h2>
           {bloco.conteudo?.subtitulo && <p className="subtitle">{resolve(bloco.conteudo.subtitulo)}</p>}
           <span className="gold-line" />
         </div>
@@ -451,9 +451,9 @@ function ProdutosBlock({ bloco }: { bloco: CmsBloco }) {
 function GaleriaBlock({ bloco }: { bloco: CmsBloco }) {
   const resolve = useTokens();
   const itens: GaleriaItemContent[] = (bloco.conteudo?.itens || []).filter((i: GaleriaItemContent) => i.ativo !== false);
-  const catsRaw: string = bloco.conteudo?.categorias || 'Todos';
+  const catsRaw: string = bloco.conteudo?.categorias || 'All';
   const cats = catsRaw.split(',').map((c: string) => c.trim());
-  const [filter, setFilter] = useState(cats[0] || 'Todos');
+  const [filter, setFilter] = useState(cats[0] || 'All');
   const [lb, setLb] = useState<number | null>(null);
   const filtered = filter === cats[0] ? itens : itens.filter(i => i.categoria === filter);
   if (!itens.length) return null;
@@ -464,8 +464,8 @@ function GaleriaBlock({ bloco }: { bloco: CmsBloco }) {
     <>
       <section className="section about-hero">
         <div className="container">
-          <span className="badge badge-gold" style={{ marginBottom:'var(--spacing-md)' }}>Galeria</span>
-          <h1>{resolve(bloco.conteudo?.titulo) || 'Nossa Galeria'}</h1>
+          <span className="badge badge-gold" style={{ marginBottom:'var(--spacing-md)' }}>Gallery</span>
+          <h1>{resolve(bloco.conteudo?.titulo) || 'Our Gallery'}</h1>
           {bloco.conteudo?.subtitulo && <p>{resolve(bloco.conteudo.subtitulo)}</p>}
           <span className="gold-line" />
         </div>

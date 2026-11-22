@@ -114,13 +114,13 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           </div>
 
           <div className="container" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
-            <span className="badge badge-primary" style={{ marginBottom: 'var(--spacing-md)' }}>Coleção Premium</span>
+            <span className="badge badge-primary" style={{ marginBottom: 'var(--spacing-md)' }}>Premium Collection</span>
             <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginBottom: 'var(--spacing-md)' }}>
-              Perfumes <span>Árabes</span>
+              Luxury <span>Fragrances</span>
             </h1>
             <p className="subtitle" style={{ maxWidth: '600px', margin: '0 auto var(--spacing-xl)' }}>
-              Essências exclusivas importadas, com fixação prolongada e presença marcante. 
-              Descubra seu novo perfume favorito.
+              Exclusive imported essences with lasting projection and refined presence.
+              Discover your next signature scent.
             </p>
           </div>
         </section>
@@ -134,13 +134,13 @@ export default async function CatalogPage({ searchParams }: PageProps) {
 
           <div className="catalog-results" style={{ marginBottom: 'var(--spacing-lg)' }}>
             {count !== null && (
-              <p style={{ color: 'var(--color-text-secondary)' }}>Mostrando {products?.length || 0} de {count} produtos</p>
+              <p style={{ color: 'var(--color-text-secondary)' }}>Showing {products?.length || 0} of {count} products</p>
             )}
           </div>
 
           {fetchError ? (
             <div className="error-state" style={{ textAlign: 'center', padding: 'var(--spacing-3xl)' }}>
-              <p style={{ color: 'var(--color-error)' }}>Ocorreu um erro ao carregar os produtos.</p>
+              <p style={{ color: 'var(--color-error)' }}>An error occurred while loading products.</p>
               <p className="text-sm mt-2">{fetchError.message}</p>
             </div>
           ) : products && products.length > 0 ? (
@@ -155,8 +155,8 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             </>
           ) : (
             <div className="no-results" style={{ textAlign: 'center', padding: 'var(--spacing-3xl)' }}>
-              <p>Nenhum produto encontrado.</p>
-              <p style={{ color: 'var(--color-text-secondary)' }}>Tente ajustar seus filtros para encontrar o que procura.</p>
+              <p>No products found.</p>
+              <p style={{ color: 'var(--color-text-secondary)' }}>Try adjusting your filters to find what you are looking for.</p>
             </div>
           )}
         </div>

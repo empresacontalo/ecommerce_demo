@@ -164,11 +164,11 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                   )}
                   <span className="product-price-main">R$ {product.price.toLocaleString('pt-BR')}</span>
                 </div>
-                <p className="product-installments">ou 12x de R$ {(product.price / 12).toFixed(2).replace('.', ',')} sem juros</p>
+                <p className="product-installments">or 12x of R$ {(product.price / 12).toFixed(2).replace('.', ',')} interest-free</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)', marginTop: 'var(--spacing-sm)' }}>
                   {descontoPix.percent > 0 && Number(product.price) >= 5 && (
                     <>
-                      <span className="badge badge-success">PIX com {descontoPix.percent}% OFF</span>
+                      <span className="badge badge-success">PIX {descontoPix.percent}% OFF</span>
                       <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--color-success)' }}>
                         R$ {descontoPix.precoComDesconto.toFixed(2).replace('.', ',')}
                       </span>
@@ -180,9 +180,9 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 </div>
                 <div style={{ marginTop: 'var(--spacing-md)', display: 'flex', alignItems: 'center' }}>
                   {product.stock > 0 ? (
-                    <span className="badge badge-success">{product.stock} unidades disponíveis</span>
+                    <span className="badge badge-success">{product.stock} units available</span>
                   ) : (
-                    <span className="badge badge-error">Esgotado</span>
+                    <span className="badge badge-error">Out of Stock</span>
                   )}
                 </div>
               </div>
@@ -190,7 +190,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
               {/* Options */}
               <div className="product-options">
                 <div>
-                  <div className="option-label">Quantidade</div>
+                  <div className="option-label">Quantity</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}>
                     <button 
                       className="btn btn-ghost btn-sm" 
@@ -214,14 +214,14 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                   onClick={handleAddToCart}
                   disabled={product.stock <= 0}
                 >
-                  🛒 Adicionar ao Carrinho
+                  🛒 Add to Cart
                 </button>
                 <button 
                   className="btn btn-primary btn-lg" 
                   onClick={handleBuyNow}
                   disabled={product.stock <= 0}
                 >
-                  {product.stock <= 0 ? 'Sem Estoque' : 'Comprar Agora'}
+                  {product.stock <= 0 ? 'Out of Stock' : 'Buy Now'}
                 </button>
                 {product.stock <= 0 && (
                   <button 
@@ -229,20 +229,20 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                     style={{ width: '100%', marginTop: 'var(--spacing-md)', border: 'none', cursor: 'pointer' }}
                     onClick={() => abrirChatComMensagem({ nome: product.name, descricao: product.description || '' })}
                   >
-                    💬 Pedir pelo Chat
+                    💬 Request via Chat
                   </button>
                 )}
               </div>
 
               {/* Description */}
               <div className="product-description">
-                <h3>Descrição</h3>
+                <h3>Description</h3>
                 <p>{product.description}</p>
 
-                <h3 style={{ marginTop: 'var(--spacing-xl)' }}>Especificações</h3>
+                <h3 style={{ marginTop: 'var(--spacing-xl)' }}>Specifications</h3>
                 <div style={{ display: 'grid', gap: 'var(--spacing-sm)', marginTop: 'var(--spacing-md)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid var(--color-border-light)' }}>
-                    <span style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>Marca</span>
+                    <span style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>Brand</span>
                     <span style={{ fontWeight: 500, fontSize: 'var(--text-sm)' }}>{product.origin}</span>
                   </div>
                 </div>
@@ -256,7 +256,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
       <section className="section section-alt">
         <div className="container">
           <div className="section-header">
-            <h2>Produtos Relacionados</h2>
+            <h2>Related Products</h2>
             <span className="gold-line" />
           </div>
           <div className="products-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }}>

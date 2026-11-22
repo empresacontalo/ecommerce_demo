@@ -30,7 +30,7 @@ export default function CatalogPagination({ currentPage, totalPages }: Paginatio
         disabled={currentPage === 1}
         onClick={() => goToPage(currentPage - 1)}
       >
-        Anterior
+        Previous
       </button>
       
       <div className="pagination-numbers">
@@ -50,7 +50,7 @@ export default function CatalogPagination({ currentPage, totalPages }: Paginatio
         disabled={currentPage === totalPages}
         onClick={() => goToPage(currentPage + 1)}
       >
-        Próximo
+        Next
       </button>
     </div>
   );

@@ -38,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
       onClick={esgotado ? (e) => e.preventDefault() : undefined}
     >
       {esgotado ? (
-        <span className="badge badge-error product-badge">Esgotado</span>
+        <span className="badge badge-error product-badge">Out of Stock</span>
       ) : (
         badge && (
           <span className={`badge ${isPromo ? 'badge-error' : 'badge-gold'} product-badge`}>
@@ -61,10 +61,10 @@ export default function ProductCard({ product }: { product: Product }) {
               className="btn btn-gold btn-sm"
               style={{ flex: 1, cursor: 'pointer', border: 'none' }}
             >
-              💬 Pedir pelo Chat
+              💬 Request via Chat
             </button>
           ) : (
-            <span className="btn btn-primary btn-sm" style={{ flex: 1 }}>Ver Produto</span>
+            <span className="btn btn-primary btn-sm" style={{ flex: 1 }}>View Product</span>
           )}
         </div>
       </div>
