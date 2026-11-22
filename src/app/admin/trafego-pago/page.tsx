@@ -254,13 +254,13 @@ export default function AdminTrafegoPago() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Tráfego Pago</h2>
+          <h2>Paid Traffic & Tracking</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             Google TAGS — {tags.length} cadastrada(s), {tags.filter(t => t.ativo).length} ativa(s)
           </p>
         </div>
         <button className="btn btn-primary btn-sm" onClick={abrirNova}>
-          + Nova Tag
+          + New Tag
         </button>
       </div>
 
@@ -279,7 +279,7 @@ export default function AdminTrafegoPago() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--spacing-md)' }}>
             <div>
-              <label className="label" htmlFor="gt-nome">Nome</label>
+              <label className="label" htmlFor="gt-nome">Name</label>
               <input
                 id="gt-nome"
                 className="input"
@@ -403,7 +403,7 @@ export default function AdminTrafegoPago() {
 
           <div style={{ display: 'flex', gap: 'var(--spacing-sm)', marginTop: 'var(--spacing-lg)' }}>
             <button className="btn btn-primary" onClick={salvar} disabled={salvando}>
-              {salvando ? 'Salvando...' : editandoId ? 'Salvar alterações' : 'Criar tag'}
+              {salvando ? 'Salvando...' : editandoId ? 'Save Changes' : 'Criar tag'}
             </button>
             <button className="btn btn-ghost" onClick={fecharForm} disabled={salvando}>
               Cancelar
@@ -421,12 +421,12 @@ export default function AdminTrafegoPago() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Name</th>
               <th>Tipo</th>
               <th>Identificador</th>
               <th>Páginas</th>
               <th>Status</th>
-              <th style={{ textAlign: 'right' }}>Ações</th>
+              <th style={{ textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -478,7 +478,7 @@ export default function AdminTrafegoPago() {
             {tags.length === 0 && !loading && (
               <tr>
                 <td colSpan={6} style={{ textAlign: 'center', color: 'var(--color-text-tertiary)', padding: '2rem' }}>
-                  Nenhuma tag cadastrada. Clique em &quot;+ Nova Tag&quot;.
+                  Nenhuma tag cadastrada. Clique em &quot;+ New Tag&quot;.
                 </td>
               </tr>
             )}

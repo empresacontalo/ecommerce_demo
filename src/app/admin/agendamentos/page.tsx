@@ -21,11 +21,11 @@ interface Stats {
   ativos: number;
 }
 
-const STATUS_OPTIONS = ['Pendente', 'Confirmado', 'Cancelado', 'Compareceu', 'Não Compareceu'];
+const STATUS_OPTIONS = ['Pending', 'Confirmed', 'Canceled', 'Compareceu', 'Não Compareceu'];
 const STATUS_COLORS: Record<string, string> = {
-  Confirmado: 'badge-success',
-  Pendente: 'badge-warning',
-  Cancelado: 'badge-error',
+  Confirmed: 'badge-success',
+  Pending: 'badge-warning',
+  Canceled: 'badge-error',
   Compareceu: 'badge-success',
   'Não Compareceu': 'badge-error',
 };
@@ -47,7 +47,7 @@ export default function AdminAgendamentos() {
   const [filter, setFilter] = useState('Todos');
   const [busca, setBusca] = useState('');
   const [modal, setModal] = useState<{ modo: 'novo' | 'editar'; agendamento?: Agendamento } | null>(null);
-  const [form, setForm] = useState({ client_name: '', client_phone: '', service: '', scheduled_at: '', status: 'Pendente', notes: '', price: '' });
+  const [form, setForm] = useState({ client_name: '', client_phone: '', service: '', scheduled_at: '', status: 'Pending', notes: '', price: '' });
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState('');
 
@@ -116,7 +116,7 @@ export default function AdminAgendamentos() {
 
   const abrirNovo = () => {
     setModal({ modo: 'novo' });
-    setForm({ client_name: '', client_phone: '', service: '', scheduled_at: '', status: 'Pendente', notes: '', price: '' });
+    setForm({ client_name: '', client_phone: '', service: '', scheduled_at: '', status: 'Pending', notes: '', price: '' });
   };
 
   const abrirEdicao = (a: Agendamento) => {
@@ -132,8 +132,8 @@ export default function AdminAgendamentos() {
     });
   };
 
-  const fmtData = (v: string) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const fmtHora = (v: string) => new Date(v).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  const fmtData = (v: string) => new Date(v).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const fmtHora = (v: string) => new Date(v).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   const fmtTel = (v: string) => {
     const d = v.replace(/\D/g, '').slice(0, 11);
     if (d.length <= 2) return d;
@@ -162,12 +162,12 @@ export default function AdminAgendamentos() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Gestão de Agendamentos</h2>
+          <h2>Appointment Management</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             {stats?.ativos ?? 0} agendamentos ativos
           </p>
         </div>
-        <button className="btn btn-primary btn-sm" onClick={abrirNovo}>+ Novo Agendamento</button>
+        <button className="btn btn-primary btn-sm" onClick={abrirNovo}>+ New Appointment</button>
       </div>
 
       {msg && <p style={{ color: 'var(--color-gold)', marginBottom: 'var(--spacing-md)' }}>{msg}</p>}
@@ -177,7 +177,7 @@ export default function AdminAgendamentos() {
         {[
           { label: 'Hoje', value: stats?.hoje ?? 0, icon: '📅' },
           { label: 'Esta Semana', value: stats?.semana ?? 0, icon: '📆' },
-          { label: 'Confirmados', value: stats?.confirmados ?? 0, icon: '✅' },
+          { label: 'Confirmeds', value: stats?.confirmados ?? 0, icon: '✅' },
           { label: 'Não Compareceram', value: stats?.no_show ?? 0, icon: '⚠️' },
         ].map((s, i) => (
           <div key={i} className="stat-card">
@@ -212,12 +212,12 @@ export default function AdminAgendamentos() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Cliente</th>
-                <th>Serviço</th>
+                <th>Customer</th>
+                <th>Service</th>
                 <th>Data & Hora</th>
                 <th>Valor</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -237,7 +237,7 @@ export default function AdminAgendamentos() {
                     <div style={{ fontWeight: 500 }}>{fmtData(a.scheduled_at)}</div>
                     <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)' }}>🕐 {fmtHora(a.scheduled_at)}</div>
                   </td>
-                  <td>{a.price != null ? a.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '—'}</td>
+                  <td>{a.price != null ? a.price.toLocaleString('en-US', { style: 'currency', currency: 'BRL' }) : '—'}</td>
                   <td>
                     <select
                       className={`badge ${STATUS_COLORS[a.status] || 'badge-secondary'}`}
@@ -250,18 +250,18 @@ export default function AdminAgendamentos() {
                   </td>
                   <td>
                     <div style={{ display: 'flex', gap: 4 }}>
-                      <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px' }} onClick={() => abrirEdicao(a)}>Editar</button>
-                      <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px', color: '#ef4444' }} onClick={() => excluir(a)}>Excluir</button>
+                      <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px' }} onClick={() => abrirEdicao(a)}>Edit</button>
+                      <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px', color: '#ef4444' }} onClick={() => excluir(a)}>Delete</button>
                     </div>
                   </td>
                 </tr>
               ))}
               {agendamentos.length === 0 && !loading && (
-                <tr><td colSpan={6} style={{ color: 'var(--color-text-tertiary)', textAlign: 'center' }}>Nenhum agendamento encontrado.</td></tr>
+                <tr><td colSpan={6} style={{ color: 'var(--color-text-tertiary)', textAlign: 'center' }}>No appointments found.</td></tr>
               )}
             </tbody>
           </table>
-          {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Carregando...</p>}
+          {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Loading...</p>}
         </div>
       </div>
 
@@ -284,11 +284,11 @@ export default function AdminAgendamentos() {
               </div>
               {campo('price', 'Valor (R$)', 'number')}
               <div className="input-group" style={{ gridColumn: '1 / -1' }}>
-                <label>Observações</label>
+                <label>Notes</label>
                 <textarea style={{ ...formStyle, minHeight: 70 }} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} />
               </div>
               <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-                <button type="button" className="btn btn-ghost" onClick={() => setModal(null)}>Cancelar</button>
+                <button type="button" className="btn btn-ghost" onClick={() => setModal(null)}>Cancel</button>
                 <button type="submit" className="btn btn-primary" disabled={saving}>{saving ? 'Salvando...' : 'Salvar'}</button>
               </div>
             </form>

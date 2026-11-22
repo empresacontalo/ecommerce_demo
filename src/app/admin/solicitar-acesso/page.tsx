@@ -55,7 +55,7 @@ export default function SolicitarAcessoPage() {
         <div className="auth-card" style={{ maxWidth: '500px', textAlign: 'center' }}>
           <AuthLogo />
           <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>⏳</div>
-          <h1 className="auth-title">Solicitação Enviada!</h1>
+          <h1 className="auth-title">Request Submitted!</h1>
           <p className="auth-subtitle">
             Sua conta foi criada com sucesso, mas o acesso ao painel ainda está <strong>pendente</strong>.
           </p>
@@ -74,14 +74,14 @@ export default function SolicitarAcessoPage() {
     <div className="auth-page">
       <div className="auth-card" style={{ maxWidth: '500px' }}>
         <AuthLogo />
-        <h1 className="auth-title">Solicitar Acesso Admin</h1>
+        <h1 className="auth-title">Request Admin Access</h1>
         <p className="auth-subtitle">Cadastre-se para solicitar permissões de administrador.</p>
 
         {error && <div className="auth-error" role="alert">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="input-group">
-            <label>Nome Completo</label>
+            <label>Full Name</label>
             <input 
               className="input" 
               type="text" 
@@ -105,7 +105,7 @@ export default function SolicitarAcessoPage() {
           </div>
 
           <div className="input-group">
-            <label>Senha</label>
+            <label>Password</label>
             <input 
               className="input" 
               type="password" 

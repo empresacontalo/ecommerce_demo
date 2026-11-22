@@ -421,7 +421,7 @@ export default function AdminConfiguracoes() {
   return (
     <>
       <div className="admin-page-header">
-        <h2>Configurações</h2>
+        <h2>Settings</h2>
         {saved && (
           <span className="badge badge-success">✅ Salvo com sucesso!</span>
         )}
@@ -430,7 +430,7 @@ export default function AdminConfiguracoes() {
       {/* Tema e Paleta de Cores */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>🎨 Tema e Paleta de Cores</h3>
+          <h3 style={{ margin: 0 }}>🎨 Theme & Color Palette</h3>
           {temaSaved && <span className="badge badge-success">✅ Tema salvo!</span>}
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
@@ -481,7 +481,7 @@ export default function AdminConfiguracoes() {
 
         <div style={{ display: 'flex', gap: 'var(--spacing-md)', justifyContent: 'flex-end', marginTop: 'var(--spacing-lg)' }}>
           <button type="button" onClick={restaurarTema} className="btn btn-secondary" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'var(--color-text)' }}>
-            ♻️ Restaurar Padrões
+            ♻️ Restore Padrões
           </button>
           <button type="button" onClick={salvarTema} disabled={temaSaving} className="btn btn-gold btn-lg">
             {temaSaving ? 'Salvando...' : '💾 Salvar Tema'}
@@ -492,7 +492,7 @@ export default function AdminConfiguracoes() {
       {/* Pagamento */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>💳 Pagamento</h3>
+          <h3 style={{ margin: 0 }}>💳 Payment Gateway</h3>
           {pagSaved && <span className="badge badge-success">✅ Pagamento salvo!</span>}
           {pagConfig.modo === 'producao' && (
             <span className="badge badge-error" style={{ marginLeft: 'var(--spacing-sm)' }} title="Cobranças reais serão geradas">
@@ -615,7 +615,7 @@ export default function AdminConfiguracoes() {
       {/* Chat */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>💬 Chat</h3>
+          <h3 style={{ margin: 0 }}>💬 Live Chat (Chatwoot)</h3>
           {chatSaved && <span className="badge badge-success">✅ Chat salvo!</span>}
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
@@ -647,7 +647,7 @@ export default function AdminConfiguracoes() {
       {/* Modo do Site */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>🚦 Modo do Site</h3>
+          <h3 style={{ margin: 0 }}>🚦 Site Mode</h3>
           {modoSaved && <span className="badge badge-success">✅ Modo salvo!</span>}
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
@@ -656,8 +656,8 @@ export default function AdminConfiguracoes() {
         </p>
         <div style={{ display: 'flex', gap: 'var(--spacing-md)', marginBottom: 'var(--spacing-lg)' }}>
           {([
-            { value: 'teste', label: '🧪 Modo Teste', desc: 'Exibe tarja de aviso' },
-            { value: 'producao', label: '🚀 Modo Produção', desc: 'Sem tarja' },
+            { value: 'teste', label: '🧪 Preview / Demo Mode', desc: 'Exibe tarja de aviso' },
+            { value: 'producao', label: '🚀 Production Mode', desc: 'Sem tarja' },
           ] as const).map(m => (
             <button
               key={m.value}
@@ -684,7 +684,7 @@ export default function AdminConfiguracoes() {
       {/* Aparência — Hero das páginas internas */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>🖼️ Hero das Páginas (Sobre, Galeria, Catálogo)</h3>
+          <h3 style={{ margin: 0 }}>🖼️ Page Hero Banners (About, Gallery, Catalog)</h3>
           {heroImagemSaved && <span className="badge badge-success">✅ Salvo!</span>}
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
@@ -709,7 +709,7 @@ export default function AdminConfiguracoes() {
       {/* Entrega por motoboy (configurável sem deploy) */}
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', border: '1px solid rgba(212,175,55,0.3)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ margin: 0 }}>🛵 Entrega por Motoboy (municípios e taxa)</h3>
+          <h3 style={{ margin: 0 }}>🛵 Local Courier Delivery (Cities & Fees)</h3>
           {motoboySaved && <span className="badge badge-success">✅ Salvo!</span>}
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
@@ -768,7 +768,7 @@ export default function AdminConfiguracoes() {
       <form onSubmit={handleSave}>
         {/* Company */}
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>🏪 Dados da Empresa</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>🏪 Store Profile & Company Info</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 'var(--spacing-md)' }}>
             {[
               { label: 'Nome da Empresa', key: 'name' },
@@ -841,7 +841,7 @@ export default function AdminConfiguracoes() {
               <input className="input" value={companyData.address2} onChange={e => setCompanyData(prev => ({ ...prev, address2: e.target.value }))} />
             </div>
             <div className="input-group">
-              <label>Cidade</label>
+              <label>City</label>
               <input className="input" value={companyData.city} onChange={e => setCompanyData(prev => ({ ...prev, city: e.target.value }))} />
             </div>
             <div className="input-group">
@@ -853,7 +853,7 @@ export default function AdminConfiguracoes() {
 
         {/* Horários */}
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>🕐 Horários de Funcionamento</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>🕐 Business Hours</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 'var(--spacing-md)' }}>
             {[
               { label: 'Segunda a Sexta', key: 'weekdays' },
@@ -872,7 +872,7 @@ export default function AdminConfiguracoes() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button type="submit" disabled={saving} className="btn btn-gold btn-lg">💾 {saving ? 'Salvando...' : 'Salvar Configurações'}</button>
+          <button type="submit" disabled={saving} className="btn btn-gold btn-lg">💾 {saving ? 'Salvando...' : 'Save Settings'}</button>
         </div>
       </form>
     </>

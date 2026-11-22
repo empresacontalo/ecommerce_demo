@@ -107,9 +107,9 @@ export default function GestaoUsuariosPage() {
 
   const statusLabel = (s: string) => {
     switch (s) {
-      case 'approved': return 'Aprovado';
-      case 'pending': return 'Pendente';
-      case 'blocked': return 'Bloqueado';
+      case 'approved': return 'Approved';
+      case 'pending': return 'Pending';
+      case 'blocked': return 'Blocked';
       default: return s;
     }
   };
@@ -126,7 +126,7 @@ export default function GestaoUsuariosPage() {
   return (
     <div>
       <h1 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: 'var(--spacing-lg)' }}>
-        Gestão de Usuários
+        Admin User Management
       </h1>
 
       <div style={{ display: 'flex', gap: 'var(--spacing-sm)', marginBottom: 'var(--spacing-lg)', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -141,7 +141,7 @@ export default function GestaoUsuariosPage() {
         ))}
         <span style={{ flex: 1 }} />
         <button className="btn btn-primary btn-sm" onClick={() => setShowNovo(v => !v)}>
-          {showNovo ? '✕ Cancelar' : '+ Novo Admin'}
+          {showNovo ? '✕ Cancelar' : '+ New Admin'}
         </button>
       </div>
 
@@ -159,7 +159,7 @@ export default function GestaoUsuariosPage() {
       {showNovo && (
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', padding: 'var(--spacing-lg)' }}>
           <h3 style={{ marginBottom: 'var(--spacing-md)', fontSize: '1rem', fontWeight: 600 }}>
-            Criar Novo Usuário Admin
+            Create New Admin User
           </h3>
           <form onSubmit={criarAdmin}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--spacing-md)' }}>
@@ -201,8 +201,8 @@ export default function GestaoUsuariosPage() {
                   value={novo.status}
                   onChange={e => setNovo({ ...novo, status: e.target.value })}
                 >
-                  <option value="approved">Aprovado (acesso imediato)</option>
-                  <option value="pending">Pendente (aguardando aprovação)</option>
+                  <option value="approved">Approved (acesso imediato)</option>
+                  <option value="pending">Pending (aguardando aprovação)</option>
                 </select>
               </div>
             </div>
@@ -222,11 +222,11 @@ export default function GestaoUsuariosPage() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Nome</th>
+              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Name</th>
               <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Email</th>
               <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Status</th>
-              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Data</th>
-              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'right' }}>Ações</th>
+              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'left' }}>Date</th>
+              <th style={{ padding: 'var(--spacing-sm)', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -240,7 +240,7 @@ export default function GestaoUsuariosPage() {
             {!loading && admins.length === 0 && (
               <tr>
                 <td colSpan={5} style={{ padding: 'var(--spacing-lg)', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
-                  Nenhum usuário encontrado.
+                  No admin users found.
                 </td>
               </tr>
             )}
@@ -260,7 +260,7 @@ export default function GestaoUsuariosPage() {
                   </span>
                 </td>
                 <td style={{ padding: 'var(--spacing-sm)', fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>
-                  {new Date(admin.created_at).toLocaleDateString('pt-BR')}
+                  {new Date(admin.created_at).toLocaleDateString('en-US')}
                 </td>
                 <td style={{ padding: 'var(--spacing-sm)', textAlign: 'right' }}>
                   <div style={{ display: 'flex', gap: 'var(--spacing-xs)', justifyContent: 'flex-end' }}>
@@ -271,7 +271,7 @@ export default function GestaoUsuariosPage() {
                           onClick={() => handleStatusChange(admin.id, 'approved')}
                           disabled={actionLoading === admin.id}
                         >
-                          Aprovar
+                          Approve
                         </button>
                         <button
                           className="btn btn-sm"
@@ -279,7 +279,7 @@ export default function GestaoUsuariosPage() {
                           onClick={() => handleStatusChange(admin.id, 'blocked')}
                           disabled={actionLoading === admin.id}
                         >
-                          Bloquear
+                          Block
                         </button>
                       </>
                     )}
@@ -290,7 +290,7 @@ export default function GestaoUsuariosPage() {
                         onClick={() => handleStatusChange(admin.id, 'blocked')}
                         disabled={actionLoading === admin.id}
                       >
-                        Bloquear
+                        Block
                       </button>
                     )}
                     {admin.status === 'blocked' && (

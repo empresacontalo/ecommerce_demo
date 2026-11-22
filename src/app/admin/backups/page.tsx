@@ -12,7 +12,7 @@ interface BackupItem {
 
 function fmtData(v: string): string {
   const d = new Date(v);
-  return Number.isNaN(d.getTime()) ? v : d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return Number.isNaN(d.getTime()) ? v : d.toLocaleString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 function fmtTamanho(bytes: number): string {
@@ -67,7 +67,7 @@ export default function AdminBackups() {
 
   async function restaurar(item: BackupItem) {
     const confirm1 = confirm(
-      `Restaurar o backup "${item.nome}"?\n\nTODOS os conteúdos atuais do site (páginas, blocos, configurações, depoimentos, galeria, campanhas, produtos, leads, agendamentos e pedidos) serão SUBSTITUÍDOS pelos dados deste backup.`
+      `Restore o backup "${item.nome}"?\n\nTODOS os conteúdos atuais do site (páginas, blocos, configurações, depoimentos, galeria, campanhas, produtos, leads, agendamentos e pedidos) serão SUBSTITUÍDOS pelos dados deste backup.`
     );
     if (!confirm1) return;
     const confirm2 = confirm('Última confirmação: deseja realmente substituir o conteúdo atual? Um backup do estado atual será criado automaticamente antes.');
@@ -107,10 +107,10 @@ export default function AdminBackups() {
   return (
     <>
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-        <h3 style={{ margin: 0 }}>💾 Backup e Restauração do Conteúdo</h3>
+        <h3 style={{ margin: 0 }}>💾 Content Backup & Restore</h3>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: '0.5rem 0 0' }}>
           O backup captura o conteúdo administrável do site (páginas, blocos, configurações, depoimentos,
-          galeria, campanhas, produtos, leads, agendamentos e pedidos). Restaurar <strong>substitui</strong>{' '}
+          galeria, campanhas, produtos, leads, agendamentos e pedidos). Restore <strong>substitui</strong>{' '}
           o conteúdo atual pelos dados do backup — um backup do estado atual é criado automaticamente antes.
         </p>
 
@@ -132,16 +132,16 @@ export default function AdminBackups() {
       </div>
 
       <div className="admin-card">
-        <h4 style={{ margin: '0 0 0.75rem' }}>Backups salvos</h4>
+        <h4 style={{ margin: '0 0 0.75rem' }}>Saved Backups</h4>
         <div className="table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Criado em</th>
                 <th>Criado por</th>
                 <th>Tamanho</th>
-                <th>Ações</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -154,10 +154,10 @@ export default function AdminBackups() {
                   <td>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       <button type="button" className="btn btn-primary btn-sm" disabled={restaurando === b.id} onClick={() => restaurar(b)}>
-                        {restaurando === b.id ? 'Restaurando...' : 'Restaurar'}
+                        {restaurando === b.id ? 'Restaurando...' : 'Restore'}
                       </button>
                       <a className="btn btn-ghost btn-sm" href={`/api/admin/backups/${b.id}/download`}>
-                        Baixar
+                        Download
                       </a>
                       <button type="button" className="btn btn-ghost btn-sm" style={{ color: 'var(--color-error)' }} onClick={() => excluir(b)}>
                         Excluir

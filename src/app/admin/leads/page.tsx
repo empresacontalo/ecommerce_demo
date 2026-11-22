@@ -125,14 +125,14 @@ export default function AdminLeads() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Gestão de Leads</h2>
+          <h2>Lead Management</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             {leads.length} leads cadastrados
           </p>
         </div>
         <div style={{ display: 'flex', gap: 'var(--spacing-sm)' }}>
           <button className="btn btn-ghost btn-sm">📥 Exportar CSV</button>
-          <button className="btn btn-primary btn-sm" onClick={() => setShowNovo(v => !v)}>+ Novo Lead</button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowNovo(v => !v)}>+ New Lead</button>
         </div>
       </div>
 
@@ -150,7 +150,7 @@ export default function AdminLeads() {
       {showNovo && (
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)', padding: 'var(--spacing-lg)' }}>
           <h3 style={{ marginBottom: 'var(--spacing-md)', fontSize: '1rem', fontWeight: 600 }}>
-            Criar Novo Lead
+            Create New Lead
           </h3>
           <form onSubmit={criarLead}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--spacing-md)' }}>
@@ -215,7 +215,7 @@ export default function AdminLeads() {
             onChange={e => setSearch(e.target.value)}
           />
           <select className="input" style={{ maxWidth: 180 }} value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-            <option>Todos</option>
+            <option>All</option>
             {kanbanCols.map(s => <option key={s}>{s}</option>)}
           </select>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', padding: 4 }}>
@@ -243,11 +243,11 @@ export default function AdminLeads() {
                 <tr>
                   <th>Lead</th>
                   <th>Canal</th>
-                  <th>Telefone</th>
+                  <th>Phone</th>
                   <th>Score</th>
                   <th>Status</th>
-                  <th>Data</th>
-                  <th>Ações</th>
+                  <th>Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -287,7 +287,7 @@ export default function AdminLeads() {
                     </td>
                     <td><span className={`badge ${STATUS_COLORS[l.status] || 'badge-secondary'}`}>{l.status}</span></td>
                     <td style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
-                      {new Date(l.created_at).toLocaleDateString('pt-BR')}
+                      {new Date(l.created_at).toLocaleDateString('en-US')}
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: 4 }}>

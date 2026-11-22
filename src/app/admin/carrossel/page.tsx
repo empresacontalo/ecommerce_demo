@@ -161,15 +161,15 @@ export default function AdminCarrossel() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Carrossel da Home</h2>
+          <h2>Homepage Carousel</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             {slides.length} slide(s) — ordem e conteúdo do banner principal
           </p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button className="btn btn-ghost btn-sm" onClick={novoSlide}>+ Novo Slide</button>
+          <button className="btn btn-ghost btn-sm" onClick={novoSlide}>+ New Slide</button>
           <button className="btn btn-primary btn-sm" onClick={salvar} disabled={salvando}>
-            {salvando ? 'Salvando...' : '💾 Salvar Carrossel'}
+            {salvando ? 'Salvando...' : '💾 Save Carousel'}
           </button>
         </div>
       </div>
@@ -181,7 +181,7 @@ export default function AdminCarrossel() {
       )}
 
       {loading ? (
-        <p style={{ color: 'var(--color-text-tertiary)', padding: '2rem', textAlign: 'center' }}>Carregando...</p>
+        <p style={{ color: 'var(--color-text-tertiary)', padding: '2rem', textAlign: 'center' }}>Loading...</p>
       ) : erroCarga ? (
         <div className="admin-card" style={{ color: 'var(--color-error)' }}>
           <p>{erroCarga}</p>
@@ -216,12 +216,12 @@ export default function AdminCarrossel() {
                 <input type="text" className="input" placeholder="✨ Nova coleção" value={s.badge || ''} onChange={e => set(i, 'badge', e.target.value)} />
               </div>
               <div>
-                <label className="label">Título</label>
+                <label className="label">Title</label>
                 <input type="text" className="input" placeholder="Título do slide" value={s.titulo || ''} onChange={e => set(i, 'titulo', e.target.value)} />
               </div>
               <div className="col-span-2">
-                <label className="label">Subtítulo</label>
-                <input type="text" className="input" placeholder="Descrição curta" value={s.subtitulo || ''} onChange={e => set(i, 'subtitulo', e.target.value)} />
+                <label className="label">Subtitle</label>
+                <input type="text" className="input" placeholder="Description curta" value={s.subtitulo || ''} onChange={e => set(i, 'subtitulo', e.target.value)} />
               </div>
               <div>
                 <label className="label">Botão 1 — Texto</label>
@@ -246,9 +246,9 @@ export default function AdminCarrossel() {
 
       {slides.length > 0 && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 'var(--spacing-md)' }}>
-          <button className="btn btn-ghost btn-sm" onClick={novoSlide}>+ Novo Slide</button>
+          <button className="btn btn-ghost btn-sm" onClick={novoSlide}>+ New Slide</button>
           <button className="btn btn-primary" onClick={salvar} disabled={salvando}>
-            {salvando ? 'Salvando...' : '💾 Salvar Carrossel'}
+            {salvando ? 'Salvando...' : '💾 Save Carousel'}
           </button>
         </div>
       )}

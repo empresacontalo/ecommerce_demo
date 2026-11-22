@@ -467,27 +467,27 @@ const [description, setDescription] = useState('');
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-xl)' }}>
-        <h2>Produtos</h2>
+        <h2>Products</h2>
         <button className="btn btn-primary" onClick={openNewModal}>
-          + Novo Produto
+          + New Product
         </button>
       </div>
 
       {loading ? (
         <div style={{ padding: 'var(--spacing-xl)', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
-          Carregando produtos...
+          Loading products...
         </div>
       ) : (
         <>
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-md)' }}>
-            <h3 style={{ margin: 0 }}>Descontos Gerais por Forma de Pagamento</h3>
+            <h3 style={{ margin: 0 }}>Global Discounts by Payment Method</h3>
             <button
               className="btn btn-primary btn-sm"
               onClick={salvarDescontosGeral}
               disabled={descontosGeralSaving || !descontosGeralCarregado}
             >
-              {descontosGeralSaving ? 'Salvando...' : 'Salvar Descontos'}
+              {descontosGeralSaving ? 'Salvando...' : 'Save Discounts'}
             </button>
           </div>
           <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', margin: '0 0 var(--spacing-md)' }}>
@@ -503,8 +503,8 @@ const [description, setDescription] = useState('');
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 'var(--spacing-md)' }}>
             {([
               { key: 'pix', label: 'PIX (%)' },
-              { key: 'credit', label: 'Cartão de crédito (%)' },
-              { key: 'boleto', label: 'Boleto (%)' },
+              { key: 'credit', label: 'Credit Card (%)' },
+              { key: 'boleto', label: 'Bank Slip (%)' },
             ] as const).map(f => (
               <div key={f.key} className="input-group">
                 <label>{f.label}</label>
@@ -523,13 +523,13 @@ const [description, setDescription] = useState('');
         </div>
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-md)' }}>
-            <h3 style={{ margin: 0 }}>Ordem de Exibição das Marcas</h3>
+            <h3 style={{ margin: 0 }}>Brand Display Order</h3>
             <button
               className="btn btn-primary btn-sm"
               onClick={salvarOrdemMarcas}
               disabled={salvandoOrdem || !ordemMarcasCarregada}
             >
-              {salvandoOrdem ? 'Salvando...' : 'Salvar Ordem'}
+              {salvandoOrdem ? 'Salvando...' : 'Save Order'}
             </button>
           </div>
           <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', margin: '0 0 var(--spacing-md)' }}>
@@ -550,9 +550,9 @@ const [description, setDescription] = useState('');
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th style={{ width: 60 }}>Posição</th>
-                    <th>Marca</th>
-                    <th style={{ width: 190 }}>Ações</th>
+                    <th style={{ width: 60 }}>Position</th>
+                    <th>Brand</th>
+                    <th style={{ width: 190 }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -562,7 +562,7 @@ const [description, setDescription] = useState('');
                       <td style={{ fontWeight: 500 }}>
                         {m}
                         {m === MARCA_PADRAO && (
-                          <span className="badge badge-primary" style={{ marginLeft: 'var(--spacing-sm)' }}>Padrão</span>
+                          <span className="badge badge-primary" style={{ marginLeft: 'var(--spacing-sm)' }}>Default</span>
                         )}
                       </td>
                       <td>
@@ -619,8 +619,8 @@ const [description, setDescription] = useState('');
             </select>
             <select className="input" style={{ maxWidth: 160 }} value={filtroEstoque} onChange={e => setFiltroEstoque(e.target.value)}>
               <option value="Todos">Estoque: Todos</option>
-              <option value="estoque">Em estoque</option>
-              <option value="esgotado">Esgotados</option>
+              <option value="estoque">In Stock</option>
+              <option value="esgotado">Out of Stocks</option>
             </select>
             <select className="input" style={{ maxWidth: 180 }} value={filtroOrdenar} onChange={e => setFiltroOrdenar(e.target.value)}>
               <option value="nome">Ordenar: Nome (A–Z)</option>
@@ -640,11 +640,11 @@ const [description, setDescription] = useState('');
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nome</th>
-                  <th>Marca</th>
-                  <th>Preço</th>
-                  <th>Estoque</th>
-                  <th>Ações</th>
+                  <th>Name</th>
+                  <th>Brand</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -655,10 +655,10 @@ const [description, setDescription] = useState('');
                     <td>{p.origin}</td>
                     <td>
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span>R$ {p.price.toLocaleString('pt-BR')}</span>
+                        <span>R$ {p.price.toLocaleString('en-US')}</span>
                         {p.price_old && (
                           <span style={{ fontSize: '11px', textDecoration: 'line-through', color: 'var(--color-text-tertiary)' }}>
-                            R$ {p.price_old.toLocaleString('pt-BR')}
+                            R$ {p.price_old.toLocaleString('en-US')}
                           </span>
                         )}
                       </div>
@@ -666,7 +666,7 @@ const [description, setDescription] = useState('');
                     <td>
                       {p.stock > 0 
                         ? <span className="badge badge-success">{p.stock} uni</span>
-                        : <span className="badge badge-error">Esgotado</span>
+                        : <span className="badge badge-error">Out of Stock</span>
                       }
                     </td>
                     <td>
@@ -699,18 +699,18 @@ const [description, setDescription] = useState('');
         </>
       )}
 
-      {/* Modal Novo/Editar Produto */}
+      {/* Modal Novo/Edit Product */}
       {showModal && (
         <div className="modal-overlay active">
           <div className="modal-content" style={{ maxWidth: 600 }}>
             <div className="modal-header">
-              <h3>{editingProduct ? 'Editar Produto' : 'Novo Produto'}</h3>
+              <h3>{editingProduct ? 'Edit Product' : 'New Product'}</h3>
               <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSave} className="checkout-grid" id="product-form">
                 <div className="col-span-2">
-                  <label className="label">Nome do Produto</label>
+                  <label className="label">Product Name</label>
                   <input 
                     type="text" 
                     className="input" 
@@ -721,7 +721,7 @@ const [description, setDescription] = useState('');
                   />
                 </div>
                 <div>
-                  <label className="label">Marca</label>
+                  <label className="label">Brand</label>
                   <input 
                     className="input"
                     list="marcas-lista"
@@ -772,7 +772,7 @@ const [description, setDescription] = useState('');
                   />
                 </div>
                 <div>
-                  <label className="label">Categoria</label>
+                  <label className="label">Category</label>
                   <input 
                     type="text" 
                     className="input" 
@@ -797,7 +797,7 @@ const [description, setDescription] = useState('');
                     {([
                       { key: 'pix' as const, label: 'PIX (%)', val: descontoPix, set: setDescontoPix },
                       { key: 'credit' as const, label: 'Cartão (%)', val: descontoCredit, set: setDescontoCredit },
-                      { key: 'boleto' as const, label: 'Boleto (%)', val: descontoBoleto, set: setDescontoBoleto },
+                      { key: 'boleto' as const, label: 'Bank Slip (%)', val: descontoBoleto, set: setDescontoBoleto },
                     ]).map(f => (
                       <div key={f.key} className="input-group">
                         <label>{f.label}</label>
@@ -870,7 +870,7 @@ const [description, setDescription] = useState('');
                   )}
                 </div>
                 <div className="col-span-2">
-                  <label className="label">Descrição</label>
+                  <label className="label">Description</label>
                   <textarea 
                     className="input" 
                     rows={3} 
@@ -881,7 +881,7 @@ const [description, setDescription] = useState('');
               </form>
             </div>
             <div className="modal-footer">
-              <button className="btn btn-ghost" onClick={() => setShowModal(false)}>Cancelar</button>
+              <button className="btn btn-ghost" onClick={() => setShowModal(false)}>Cancel</button>
               <button 
                 type="submit" 
                 form="product-form" 

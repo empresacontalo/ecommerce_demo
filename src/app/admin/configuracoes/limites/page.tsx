@@ -79,7 +79,7 @@ export default function LimitesAcessoPage() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Limites de Acesso</h2>
+          <h2>API Rate Limits</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             Proteção contra abuso: máximo de requisições por IP dentro de uma janela de tempo.
           </p>
@@ -93,7 +93,7 @@ export default function LimitesAcessoPage() {
       )}
 
       {loading ? (
-        <p style={{ color: 'var(--color-text-tertiary)', padding: '2rem', textAlign: 'center' }}>Carregando...</p>
+        <p style={{ color: 'var(--color-text-tertiary)', padding: '2rem', textAlign: 'center' }}>Loading...</p>
       ) : (
         <div className="admin-card">
           <div className="table-wrapper">
@@ -104,7 +104,7 @@ export default function LimitesAcessoPage() {
                   <th style={{ minWidth: 90 }}>Máximo de requisições</th>
                   <th style={{ minWidth: 110 }}>Janela de tempo</th>
                   <th>Padrão atual</th>
-                  <th>Ações</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

@@ -42,7 +42,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
         { key: 'imagem', label: 'Imagem (URL)', type: 'image', placeholder: '/images/hero-1.jpg' },
         { key: 'badge', label: 'Badge', type: 'text', placeholder: '✨ Qualidade Premium' },
         { key: 'titulo', label: 'Título', type: 'text', placeholder: 'Título do slide' },
-        { key: 'subtitulo', label: 'Subtítulo', type: 'textarea', placeholder: 'Descrição do slide' },
+        { key: 'subtitulo', label: 'Subtítulo', type: 'textarea', placeholder: 'Description do slide' },
         { key: 'cta1_label', label: 'Botão 1 - Texto', type: 'text', placeholder: 'Ver Catálogo' },
         { key: 'cta1_link', label: 'Botão 1 - Link', type: 'text', placeholder: '/catalogo' },
         { key: 'cta2_label', label: 'Botão 2 - Texto', type: 'text', placeholder: 'Agendar Horário' },
@@ -56,7 +56,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
       fields: [
         { key: 'icone', label: 'Ícone (emoji)', type: 'text', placeholder: '💎' },
         { key: 'titulo', label: 'Título', type: 'text', placeholder: 'Título do card' },
-        { key: 'descricao', label: 'Descrição', type: 'textarea', placeholder: 'Texto do card' },
+        { key: 'descricao', label: 'Description', type: 'textarea', placeholder: 'Texto do card' },
         { key: 'link', label: 'Link (opcional)', type: 'text', placeholder: '/pagina' },
       ],
     },
@@ -66,7 +66,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
       fields: [
         { key: 'icone', label: 'Ícone (emoji)', type: 'text', placeholder: '💎' },
         { key: 'titulo', label: 'Título', type: 'text' },
-        { key: 'descricao', label: 'Descrição', type: 'textarea' },
+        { key: 'descricao', label: 'Description', type: 'textarea' },
       ],
     },
   ],
@@ -74,7 +74,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
     { key: 'itens', label: 'Serviços', type: 'array', itemLabel: 'Serviço',
       fields: [
         { key: 'titulo', label: 'Título', type: 'text', placeholder: 'Nome do serviço' },
-        { key: 'descricao', label: 'Descrição', type: 'textarea' },
+        { key: 'descricao', label: 'Description', type: 'textarea' },
         { key: 'preco', label: 'Preço', type: 'text', placeholder: 'A partir de R$ 200' },
         { key: 'duracao', label: 'Duração', type: 'text', placeholder: '2-4 horas' },
         { key: 'imagem', label: 'Imagem (URL)', type: 'image', placeholder: '/images/servico.jpg' },
@@ -116,7 +116,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
         { key: 'url', label: 'URL da Imagem', type: 'image', placeholder: '/images/foto.jpg' },
         { key: 'categoria', label: 'Categoria', type: 'text', placeholder: 'Produtos' },
         { key: 'titulo', label: 'Título', type: 'text', placeholder: 'Nome da imagem' },
-        { key: 'alt', label: 'Texto Alternativo', type: 'text', placeholder: 'Descrição para acessibilidade' },
+        { key: 'alt', label: 'Texto Alternativo', type: 'text', placeholder: 'Description para acessibilidade' },
       ],
     },
   ],
@@ -130,7 +130,7 @@ const BLOCK_FIELDS: Record<string, BlocoFieldDef[]> = {
     { key: 'imagem_fundo', label: 'Imagem de Fundo (URL)', type: 'image', placeholder: '/images/cta-bg.jpg' },
   ],
   texto: [
-    { key: 'conteudo_html', label: 'Conteúdo HTML', type: 'richtext', placeholder: '<h2>Título</h2><p>Texto...</p>' },
+    { key: 'conteudo_html', label: 'Conteúdo HTML', type: 'richtext', placeholder: '<h2>Title</h2><p>Texto...</p>' },
   ],
   html: [
     { key: 'codigo', label: 'Código HTML', type: 'richtext', placeholder: '<div>...</div>' },
@@ -241,7 +241,7 @@ function ImageField({ value, onChange, placeholder }: { value: string; onChange:
 
   return (
     <div>
-      <label style={{ display:'block', fontSize:'0.75rem', fontWeight:600, marginBottom:'0.25rem', color:'var(--color-text-secondary)' }}>Imagem</label>
+      <label style={{ display:'block', fontSize:'0.75rem', fontWeight:600, marginBottom:'0.25rem', color:'var(--color-text-secondary)' }}>Image</label>
       <input style={{ width:'100%', padding:'0.5rem 0.75rem', borderRadius:'8px', border:'1px solid var(--color-border)', backgroundColor:'var(--color-surface)', color:'var(--color-text)', fontSize:'0.875rem' }}
         value={value || ''} onChange={e => onChange(e.target.value)} placeholder={placeholder || 'URL da imagem ou envie abaixo'} />
       <input type="file" accept="image/*" onChange={handleFile} style={{ marginTop:'0.25rem', fontSize:'0.75rem', color:'var(--color-text-secondary)' }} title="Enviar imagem do computador" />
@@ -663,13 +663,13 @@ export default function AdminConteudoPage() {
     setFormData(init);
   };
 
-  if (loading) return <div style={{ padding:'2rem' }}>Carregando...</div>;
+  if (loading) return <div style={{ padding:'2rem' }}>Loading...</div>;
 
   const currentFields = BLOCK_FIELDS[formTipo] || [];
 
   return (
     <div style={{ padding:'1.5rem', maxWidth:'1200px', margin:'0 auto' }}>
-      <h1 style={{ fontSize:'1.5rem', fontWeight:700, marginBottom:'1.5rem' }}>📝 Gerenciador de Conteúdo</h1>
+      <h1 style={{ fontSize:'1.5rem', fontWeight:700, marginBottom:'1.5rem' }}>📝 Content Manager (CMS)</h1>
 
       {mensagem && (
         <div style={{ padding:'0.75rem 1rem', marginBottom:'1rem', borderRadius:'8px', backgroundColor: mensagem.tipo==='sucesso'?'#dcfce7':'#fee2e2', color: mensagem.tipo==='sucesso'?'#166534':'#991b1b', }}>
@@ -680,23 +680,23 @@ export default function AdminConteudoPage() {
       {/* Lista de Páginas */}
       <div style={{ ...s.card, marginBottom:'1.5rem' }}>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem' }}>
-          <h2 style={{ fontSize:'1.125rem', fontWeight:600 }}>📄 Páginas</h2>
+          <h2 style={{ fontSize:'1.125rem', fontWeight:600 }}>📄 Pages</h2>
           <button
             onClick={() => abrirModalPagina('nova')}
             style={s.btnPrimary}
           >
-            + Nova Página
+            + New Page
           </button>
         </div>
         <div className="table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Página</th>
+                <th>Page</th>
                 <th>Slug</th>
                 <th>Status</th>
-                <th>Blocos</th>
-                <th>Ações</th>
+                <th>Blocks</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -737,7 +737,7 @@ export default function AdminConteudoPage() {
                         >
                           Editar
                         </button>
-                        <button onClick={() => excluirPagina(p)} style={s.btnDanger}>Excluir</button>
+                        <button onClick={() => excluirPagina(p)} style={s.btnDanger}>Delete</button>
                       </div>
                     </td>
                   </tr>
@@ -758,7 +758,7 @@ export default function AdminConteudoPage() {
               <h2 style={{ fontSize:'1.125rem', fontWeight:600 }}>{paginaSelecionada.titulo}</h2>
               <span style={{ fontSize:'0.75rem', color:'var(--color-text-tertiary)' }}>/{paginaSelecionada.slug}</span>
             </div>
-            <button onClick={abrirNovoBloco} style={s.btnPrimary}>+ Adicionar Bloco</button>
+            <button onClick={abrirNovoBloco} style={s.btnPrimary}>+ Add Block</button>
           </div>
 
           {/* Lista de Blocos */}
@@ -815,7 +815,7 @@ export default function AdminConteudoPage() {
                     style={{ padding:'0.375rem 0.75rem', borderRadius:'6px', border:'1px solid var(--color-border)', background:'none', cursor:'pointer', fontSize:'0.75rem', color:'var(--color-text-primary)' }}>
                     Editar
                   </button>
-                  <button onClick={() => excluirBloco(bloco)} style={s.btnDanger}>Excluir</button>
+                  <button onClick={() => excluirBloco(bloco)} style={s.btnDanger}>Delete</button>
                 </div>
               </div>
             ))}
@@ -867,7 +867,7 @@ export default function AdminConteudoPage() {
               <div style={{ borderTop:'1px solid var(--color-border)', paddingTop:'1rem', marginTop:'0.5rem' }}>
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.75rem' }}>
                   <h4 style={{ fontSize:'0.875rem', fontWeight:600, margin:0, color:'#b8860b' }}>
-                    📋 Conteúdo do Bloco
+                    📋 Block Content
                   </h4>
                   <button type="button" onClick={alternarJsonMode} style={{ ...s.btn, fontSize:'0.75rem', background:'var(--color-surface-alt)', border:'1px solid var(--color-border)' }}>
                     {jsonMode ? '🔙 Modo visual' : '⚙️ Modo avançado (JSON)'}
@@ -915,9 +915,9 @@ export default function AdminConteudoPage() {
 
               {/* Botões */}
               <div style={{ display:'flex', gap:'0.75rem', justifyContent:'flex-end', marginTop:'0.5rem' }}>
-                <button onClick={cancelarEdicao} style={{ ...s.btn, background:'var(--color-surface-alt)' }}>Cancelar</button>
+                <button onClick={cancelarEdicao} style={{ ...s.btn, background:'var(--color-surface-alt)' }}>Cancel</button>
                 <button onClick={salvarBloco} disabled={salvando} style={s.btnPrimary}>
-                  {salvando ? 'Salvando...' : 'Salvar Bloco'}
+                  {salvando ? 'Salvando...' : 'Save Block'}
                 </button>
               </div>
             </div>
@@ -948,7 +948,7 @@ export default function AdminConteudoPage() {
                 <textarea style={{ ...s.textarea, minHeight: 70 }} value={paginaForm.meta_description} onChange={e => setPaginaForm(p => ({ ...p, meta_description: e.target.value }))} placeholder="Breve descrição exibida em buscadores" />
               </div>
               <div style={{ display:'flex', gap:'0.75rem', justifyContent:'flex-end', marginTop:'0.5rem' }}>
-                <button type="button" onClick={() => setPaginaModal(null)} style={{ ...s.btn, background:'var(--color-surface-alt)' }}>Cancelar</button>
+                <button type="button" onClick={() => setPaginaModal(null)} style={{ ...s.btn, background:'var(--color-surface-alt)' }}>Cancel</button>
                 <button type="submit" disabled={salvando} style={s.btnPrimary}>
                   {salvando ? 'Salvando...' : (paginaModal.modo === 'editar' ? 'Salvar Alterações' : 'Criar Página')}
                 </button>
@@ -959,18 +959,18 @@ export default function AdminConteudoPage() {
             {paginaModal.modo === 'editar' && paginaModal.pagina && (
               <div style={{ borderTop:'1px solid var(--color-border)', marginTop:'1.25rem', paddingTop:'1rem' }}>
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem' }}>
-                  <h4 style={{ margin:0, fontSize:'0.9rem', fontWeight:600 }}>📋 Conteúdo da página (blocos)</h4>
+                  <h4 style={{ margin:0, fontSize:'0.9rem', fontWeight:600 }}>📋 Page Content (Blocks)</h4>
                   <button
                     type="button"
                     onClick={() => { const p = paginaModal.pagina!; setPaginaModal(null); selecionarPagina(p); abrirNovoBloco(); }}
                     style={{ ...s.btnPrimary, padding:'0.25rem 0.75rem', fontSize:'0.75rem' }}
                   >
-                    + Adicionar Bloco
+                    + Add Block
                   </button>
                 </div>
                 {blocosModal.length === 0 && (
                   <p style={{ fontSize:'0.75rem', color:'var(--color-text-tertiary)', margin:0 }}>
-                    Esta página ainda não tem blocos. Clique em &quot;+ Adicionar Bloco&quot; para criar o conteúdo (texto, imagens, chaves dinâmicas e HTML/CSS).
+                    Esta página ainda não tem blocos. Clique em &quot;+ Add Block&quot; para criar o conteúdo (texto, imagens, chaves dinâmicas e HTML/CSS).
                   </p>
                 )}
                 <div style={{ display:'flex', flexDirection:'column', gap:'0.375rem' }}>

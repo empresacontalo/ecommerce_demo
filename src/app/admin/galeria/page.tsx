@@ -101,7 +101,7 @@ export default function AdminGaleria() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Gestão de Galeria</h2>
+          <h2>Gallery Management</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             {itens.length} item(ns){videos > 0 ? ` — ${videos} vídeo(s)` : ''} — {itens.filter(i => i.ativo !== false).length} visíveis
           </p>
@@ -206,7 +206,7 @@ export default function AdminGaleria() {
           </div>
         )}
       </div>
-      {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Carregando...</p>}
+      {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Loading...</p>}
     </>
   );
 }

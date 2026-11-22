@@ -50,12 +50,12 @@ const ENVIO_OPTIONS = ['pac', 'sedex', 'motoboy', 'retirada'];
 const RASTREIO_OPTIONS = ['Todos', 'com', 'sem'];
 const ORDENACAO_OPTIONS = ['recentes', 'antigos', 'maior_valor', 'menor_valor'];
 const STATUS_LABEL: Record<string, string> = {
-  RECEBIDO: 'Pagamento recebido',
-  APROVADO: 'Aprovado',
-  EM_PREPARACAO: 'Em preparação',
-  ENVIADO: 'Enviado',
-  CANCELADO: 'Cancelado',
-  DEVOLUCAO: 'Em devolução',
+  RECEBIDO: 'Payment Received',
+  APROVADO: 'Approved',
+  EM_PREPARACAO: 'Preparing',
+  ENVIADO: 'Shipped',
+  CANCELADO: 'Canceled',
+  DEVOLUCAO: 'Returned',
 };
 const STATUS_COLORS: Record<string, string> = {
   RECEBIDO: 'badge-warning',
@@ -67,9 +67,9 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const fmtBRL = (v: number | string) =>
-  Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  Number(v).toLocaleString('en-US', { style: 'currency', currency: 'BRL' });
 
-const fmtData = (v: string) => new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const fmtData = (v: string) => new Date(v).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
 export default function AdminPedidos() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -179,7 +179,7 @@ export default function AdminPedidos() {
 
         {/* Cliente */}
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Cliente</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Customer</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 'var(--spacing-md)', fontSize: 'var(--text-sm)' }}>
             <div><strong>Nome:</strong> {detalhe.customer_name}</div>
             <div><strong>E-mail:</strong> {detalhe.customer_email}</div>
@@ -190,9 +190,9 @@ export default function AdminPedidos() {
           </div>
         </div>
 
-        {/* Entrega e Rastreamento */}
+        {/* Shipping & Tracking */}
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Entrega e Rastreamento</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Shipping & Tracking</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 'var(--spacing-md)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
             <div><strong>Método:</strong> {detalhe.shipping_method || '—'}</div>
             <div><strong>Custo do envio:</strong> {fmtBRL(detalhe.shipping)}</div>
@@ -259,17 +259,17 @@ export default function AdminPedidos() {
               <button className="btn btn-gold btn-sm" onClick={() => salvarRastreio(detalhe)}>Salvar Rastreio</button>
             </div>
             <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-tertiary)', marginTop: '0.5rem', marginBottom: 0 }}>
-              Informe o código dos Correios <strong>ou</strong> o link de acompanhamento. Ao salvar com o status <strong>Enviado</strong>, o cliente é avisado por e-mail e pela caixa do agente de atendimento (WhatsApp quando conectado).
+              Informe o código dos Correios <strong>ou</strong> o link de acompanhamento. Ao salvar com o status <strong>Shipped</strong>, o cliente é avisado por e-mail e pela caixa do agente de atendimento (WhatsApp quando conectado).
             </p>
           </div>
         </div>
 
         {/* Itens */}
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Itens</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Items</h3>
           <div className="table-wrapper">
             <table className="admin-table">
-              <thead><tr><th>Produto</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr></thead>
+              <thead><tr><th>Product</th><th>Qtd</th><th>Price</th><th>Subtotal</th></tr></thead>
               <tbody>
                 {itens.map((i, idx) => (
                   <tr key={idx}>
@@ -294,7 +294,7 @@ export default function AdminPedidos() {
         {/* Pagamento */}
         {(detalhe.pix_qr_code || detalhe.boleto_url || detalhe.asaas_invoice_url) && (
           <div className="admin-card">
-            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Pagamento</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Payment</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 'var(--text-sm)' }}>
               {detalhe.asaas_payment_id && <span><strong>ID do pagamento:</strong> {detalhe.asaas_payment_id}</span>}
               {detalhe.asaas_invoice_url && <span><strong>Fatura:</strong> <a href={detalhe.asaas_invoice_url} target="_blank" rel="noreferrer" style={{ color: 'var(--color-gold)' }}>{detalhe.asaas_invoice_url}</a></span>}
@@ -314,7 +314,7 @@ export default function AdminPedidos() {
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Gerenciamento de Pedidos</h2>
+          <h2>Order Management</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             {orders.length} pedido(s)
           </p>
@@ -326,7 +326,7 @@ export default function AdminPedidos() {
           <input
             type="text"
             className="input"
-            placeholder="Buscar por cliente, e-mail ou ID..."
+            placeholder="Search by customer, email, or order ID..."
             style={{ maxWidth: 300 }}
             value={busca}
             onChange={e => setBusca(e.target.value)}
@@ -383,12 +383,12 @@ export default function AdminPedidos() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Pedido</th>
-                <th>Data</th>
-                <th>Cliente</th>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Customer</th>
                 <th>Total</th>
                 <th>Status</th>
-                <th>Ações</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -420,11 +420,11 @@ export default function AdminPedidos() {
                 </tr>
               ))}
               {orders.length === 0 && !loading && (
-                <tr><td colSpan={6} style={{ color: 'var(--color-text-tertiary)', textAlign: 'center' }}>Nenhum pedido encontrado.</td></tr>
+                <tr><td colSpan={6} style={{ color: 'var(--color-text-tertiary)', textAlign: 'center' }}>No orders found.</td></tr>
               )}
             </tbody>
           </table>
-          {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Carregando...</p>}
+          {loading && <p style={{ color: 'var(--color-text-tertiary)', textAlign: 'center', padding: '1rem' }}>Loading...</p>}
         </div>
       </div>
     </>

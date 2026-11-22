@@ -427,7 +427,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
 
         {aba.aba === 'imagens' && (
           <div className="admin-card" style={{ marginTop: 'var(--spacing-lg)' }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Carrossel de imagens</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Image Carousel</h3>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: 'var(--spacing-md)', flexWrap: 'wrap' }}>
               <input
                 id="ia-prompt"
@@ -448,7 +448,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
                   if (inp?.value) { await gerarImagemIA(inp.value); inp.value = ''; }
                 }}
               >
-                ✨ Gerar com IA
+                ✨ Generate with AI
               </button>
             </div>
 
@@ -513,7 +513,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
                   <div style={{ display: 'flex', gap: 4, marginTop: 6, flexWrap: 'wrap' }}>
                     <button className="btn btn-ghost btn-sm" disabled={i === 0} onClick={() => reordenar(img, -1)}>←</button>
                     <button className="btn btn-ghost btn-sm" disabled={i === imagens.length - 1} onClick={() => reordenar(img, 1)}>→</button>
-                    {img.status !== 'aprovada' && <button className="btn btn-primary btn-sm" onClick={() => aprovarImagem(img, 'aprovada')}>Aprovar</button>}
+                    {img.status !== 'aprovada' && <button className="btn btn-primary btn-sm" onClick={() => aprovarImagem(img, 'aprovada')}>Approve</button>}
                     {img.status !== 'rejeitada' && <button className="btn btn-ghost btn-sm" onClick={() => aprovarImagem(img, 'rejeitada')}>Rejeitar</button>}
                     <button className="btn btn-ghost btn-sm" onClick={() => excluirImagem(img)}>🗑</button>
                   </div>
@@ -526,11 +526,11 @@ const [historico, setHistorico] = useState<Historico[]>([]);
 
         {aba.aba === 'leads' && (
           <div className="admin-card" style={{ marginTop: 'var(--spacing-lg)' }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Leads capturados</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Captured Leads</h3>
             <div className="table-wrapper">
               <table className="admin-table">
                 <thead>
-                  <tr><th>Nome</th><th>WhatsApp</th><th>E-mail</th><th>Canal</th><th>Status</th><th>Data</th><th>Ações</th></tr>
+                  <tr><th>Name</th><th>WhatsApp</th><th>E-mail</th><th>Canal</th><th>Status</th><th>Date</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                   {leads.map((l) => (
@@ -540,7 +540,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
                       <td style={{ fontSize: 'var(--text-sm)' }}>{l.email || '—'}</td>
                       <td style={{ fontSize: 'var(--text-sm)' }}>{l.canal_preferido}</td>
                       <td><span className={`badge ${l.status_comunicacao === 'respondida' ? 'badge-success' : l.status_comunicacao === 'sem_resposta' ? 'badge-warning' : 'badge-secondary'}`}>{l.status_comunicacao}</span></td>
-                      <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(l.criado_em).toLocaleDateString('pt-BR')}</td>
+                      <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(l.criado_em).toLocaleDateString('en-US')}</td>
                       <td>
                         <button className="btn btn-ghost btn-sm" onClick={() => followUpManual(l)}>🤖 Follow-up IA</button>
                       </td>
@@ -555,16 +555,16 @@ const [historico, setHistorico] = useState<Historico[]>([]);
 
         {aba.aba === 'historico' && (
           <div className="admin-card" style={{ marginTop: 'var(--spacing-lg)' }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Histórico de alterações</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Change History</h3>
             <div className="table-wrapper">
               <table className="admin-table">
-                <thead><tr><th>Ação</th><th>Detalhes</th><th>Data</th></tr></thead>
+                <thead><tr><th>Ação</th><th>Detalhes</th><th>Date</th></tr></thead>
                 <tbody>
                   {historico.map((h) => (
                     <tr key={h.id}>
                       <td><span className="badge badge-info">{h.acao}</span></td>
                       <td style={{ fontSize: 'var(--text-sm)' }}>{h.detalhes ? JSON.stringify(h.detalhes) : '—'}</td>
-                      <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(h.criado_em).toLocaleString('pt-BR')}</td>
+                      <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(h.criado_em).toLocaleString('en-US')}</td>
                     </tr>
                   ))}
                   {historico.length === 0 && <tr><td colSpan={3} style={{ color: 'var(--color-text-secondary)' }}>Sem registros.</td></tr>}
@@ -576,7 +576,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
 
         {aba.aba === 'decoracoes' && (
           <div className="admin-card" style={{ marginTop: 'var(--spacing-lg)' }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Templates decorativos</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Decorative Templates</h3>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--spacing-lg)' }}>
               Elementos visuais exibidos sobre a seção da campanha. Novos temas são só novas linhas — sem alterar código.
             </p>
@@ -644,28 +644,28 @@ const [historico, setHistorico] = useState<Historico[]>([]);
     <>
       <div className="admin-page-header">
         <div>
-          <h2>Gestão de Campanhas</h2>
+          <h2>Campaign Management</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             Crie, agende, publique e acompanhe campanhas promocionais
           </p>
         </div>
         <button className="btn btn-primary btn-sm" onClick={() => { setNova(!nova); setEditando(null); setForm({ ativo: 'true', prioridade: '0', follow_up_horas: '24', canal_padrao: 'whatsapp', tipo_campanha: 'global' }); }}>
-          + Nova Campanha
+          + New Campaign
         </button>
       </div>
 
       {nova && (
         <div className="admin-card" style={{ marginBottom: 'var(--spacing-lg)' }}>
-          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>Nova Campanha</h3>
+          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>New Campaign</h3>
           <form onSubmit={salvar} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 'var(--spacing-md)' }}>
             {formCampo('titulo', 'Título *')}
-            {formCampo('descricao', 'Descrição', 'textarea')}
+            {formCampo('descricao', 'Description', 'textarea')}
             {formCampo('tipo_campanha', 'Tipo', 'select', ['global', 'pessoal', 'promocional'])}
             {formCampo('categoria', 'Categoria', 'select', TIPOS_CATEGORIA)}
             {formCampo('desconto', 'Desconto (ex: 15%)')}
 
             <div className="input-group">
-              <label>Cupom de desconto (código)</label>
+              <label>Discount Coupon (código)</label>
               <div style={{ display: 'flex', gap: 6 }}>
                 <input
                   style={formStyle}
@@ -695,7 +695,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
 
             {(form['cupom_escopo'] ?? 'todos') === 'marca' && (
               <div className="input-group">
-                <label>Marca</label>
+                <label>Brand</label>
                 <select style={formStyle} value={form['cupom_marca'] ?? ''} onChange={(e) => setForm((p) => ({ ...p, cupom_marca: e.target.value }))} required>
                   <option value="">Selecione a marca</option>
                   {marcas.map((m) => <option key={m} value={m}>{m}</option>)}
@@ -727,15 +727,15 @@ const [historico, setHistorico] = useState<Historico[]>([]);
             {formCampo('data_fim', 'Término (encerrar automático)', 'datetime-local')}
             {formCampo('mensagem_prompt', 'Orientação da mensagem IA', 'textarea')}
             <div className="input-group">
-              <label>Ativa</label>
+              <label>Active</label>
               <select style={formStyle} value={form.ativo ?? 'true'} onChange={(e) => setForm((p) => ({ ...p, ativo: e.target.value }))}>
-                <option value="true">Sim</option>
-                <option value="false">Não</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
             </div>
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 'var(--spacing-sm)' }}>
-              <button type="submit" className="btn btn-primary">Salvar</button>
-              <button type="button" className="btn btn-ghost" onClick={() => setNova(false)}>Cancelar</button>
+              <button type="submit" className="btn btn-primary">Save</button>
+              <button type="button" className="btn btn-ghost" onClick={() => setNova(false)}>Cancel</button>
             </div>
           </form>
         </div>
@@ -746,7 +746,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Campanha</th><th>Tipo</th><th>Prioridade</th><th>Período</th><th>Status</th><th>Imagens</th><th>Leads</th><th>Ações</th>
+                <th>Campanha</th><th>Tipo</th><th>Prioridade</th><th>Período</th><th>Status</th><th>Imagens</th><th>Leads</th><th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -768,9 +768,9 @@ const [historico, setHistorico] = useState<Historico[]>([]);
                     <td style={{ fontSize: 'var(--text-sm)' }}>{c.tipo_campanha}</td>
                     <td>{c.prioridade}</td>
                     <td style={{ fontSize: 'var(--text-sm)' }}>
-                      {c.data_inicio ? new Date(c.data_inicio).toLocaleDateString('pt-BR') : '—'}
+                      {c.data_inicio ? new Date(c.data_inicio).toLocaleDateString('en-US') : '—'}
                       {' → '}
-                      {c.data_fim ? new Date(c.data_fim).toLocaleDateString('pt-BR') : '∞'}
+                      {c.data_fim ? new Date(c.data_fim).toLocaleDateString('en-US') : '∞'}
                     </td>
                     <td><span className={`badge ${STATUS_COLORS[st] || 'badge-secondary'}`}>{st}</span></td>
                     <td>{c.qtd_imagens || 0}</td>
@@ -793,7 +793,7 @@ const [historico, setHistorico] = useState<Historico[]>([]);
                 );
               })}
               {campanhas.length === 0 && !loading && (
-                <tr><td colSpan={8} style={{ color: 'var(--color-text-secondary)' }}>Nenhuma campanha cadastrada.</td></tr>
+                <tr><td colSpan={8} style={{ color: 'var(--color-text-secondary)' }}>No campaigns created yet.</td></tr>
               )}
             </tbody>
           </table>

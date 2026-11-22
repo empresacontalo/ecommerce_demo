@@ -51,7 +51,7 @@ function rotuloAcao(acao: string): string {
 
 function formatarData(iso: string): string {
   try {
-    return new Date(iso).toLocaleString('pt-BR', {
+    return new Date(iso).toLocaleString('en-US', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -146,7 +146,7 @@ export default function AdminAuditoria() {
     <div>
       <div className="admin-page-header">
         <div>
-          <h2>Auditoria</h2>
+          <h2>Audit Logs</h2>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', margin: 0 }}>
             Registro de alterações feitas por administradores e pela inteligência artificial (MCP).
             Logs são mantidos por 7 dias.
@@ -157,45 +157,45 @@ export default function AdminAuditoria() {
       <div className="admin-card" style={{ marginBottom: 'var(--spacing-xl)' }}>
         <form onSubmit={buscar} style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-md)', alignItems: 'flex-end' }}>
           <div style={{ flex: '1 1 220px', minWidth: 180 }}>
-            <label className="label">Buscar (resumo, IP, localização)</label>
-            <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ex: produto, 177.55..." />
+            <label className="label">Search (summary, IP, location)</label>
+            <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g., product, 177.55..." />
           </div>
           <div>
-            <label className="label">Origem</label>
+            <label className="label">Source</label>
             <select className="input" value={filtroTipo} onChange={(e) => setFiltroTipo(e.target.value)} style={{ minWidth: 130 }}>
-              <option value="">Todas</option>
+              <option value="">All</option>
               <option value="admin">Administrador</option>
               <option value="mcp">Inteligência Artificial</option>
             </select>
           </div>
           <div>
-            <label className="label">Responsável</label>
+            <label className="label">Actor</label>
             <select className="input" value={filtroResponsavel} onChange={(e) => setFiltroResponsavel(e.target.value)} style={{ minWidth: 160 }}>
-              <option value="">Todos</option>
+              <option value="">All</option>
               {responsaveis.map((r) => (
                 <option key={r} value={r}>{r}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="label">Tipo de alteração</label>
+            <label className="label">Action Type</label>
             <select className="input" value={filtroAcao} onChange={(e) => setFiltroAcao(e.target.value)} style={{ minWidth: 160 }}>
-              <option value="">Todos</option>
+              <option value="">All</option>
               {acoes.map((a) => (
                 <option key={a} value={a}>{rotuloAcao(a)}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="label">De</label>
+            <label className="label">From</label>
             <input className="input" type="date" value={filtroDe} onChange={(e) => setFiltroDe(e.target.value)} />
           </div>
           <div>
-            <label className="label">Até</label>
+            <label className="label">To</label>
             <input className="input" type="date" value={filtroAte} onChange={(e) => setFiltroAte(e.target.value)} />
           </div>
-          <button type="submit" className="btn btn-primary">Buscar</button>
-          <button type="button" className="btn btn-ghost" onClick={limpar}>Limpar</button>
+          <button type="submit" className="btn btn-primary">Search</button>
+          <button type="button" className="btn btn-ghost" onClick={limpar}>Clear</button>
         </form>
       </div>
 
@@ -207,10 +207,10 @@ export default function AdminAuditoria() {
 
       <div className="admin-card">
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--color-text-secondary)' }}>Carregando...</div>
+          <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--color-text-secondary)' }}>Loading...</div>
         ) : itens.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--color-text-secondary)' }}>
-            Nenhum registro encontrado com os filtros atuais.
+            No audit records found matching the current filters.
           </div>
         ) : (
           <div className="table-wrapper">
@@ -218,13 +218,13 @@ export default function AdminAuditoria() {
               <thead>
                 <tr>
                   <th>Data e hora</th>
-                  <th>Responsável</th>
+                  <th>Actor</th>
                   <th>Tipo</th>
-                  <th>Resumo</th>
+                  <th>Summary</th>
                   <th>IP</th>
                   <th>Navegador</th>
                   <th>Sistema</th>
-                  <th>Localização</th>
+                  <th>Location</th>
                 </tr>
               </thead>
               <tbody>
@@ -302,7 +302,7 @@ export default function AdminAuditoria() {
         <div className="modal-overlay active">
           <div className="modal-content" style={{ maxWidth: 560 }}>
             <div className="modal-header">
-              <h3>Detalhe da alteração</h3>
+              <h3>Change Details</h3>
               <button className="modal-close" onClick={() => setDetalhe(null)}>✕</button>
             </div>
             <div className="modal-body">
@@ -326,7 +326,7 @@ export default function AdminAuditoria() {
               </div>
             </div>
             <div className="modal-footer">
-              <button className="btn btn-primary" onClick={() => setDetalhe(null)}>Fechar</button>
+              <button className="btn btn-primary" onClick={() => setDetalhe(null)}>Close</button>
             </div>
           </div>
         </div>
