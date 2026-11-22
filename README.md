@@ -111,17 +111,21 @@ Production traffic never touches the application server or database directly. Th
 
 ---
 
-## Omnichannel Support with Chatwoot (Open Source)
+## Omnichannel Hub & Self-Reinforcing Sales Funnel with Chatwoot (Open Source)
 
-The storefront connects directly to a self-hosted **Chatwoot Open Source** instance (including the open-source WhatsApp and operational enhancements from [`fazer-ai/chatwoot`](https://github.com/fazer-ai/chatwoot)):
+The storefront connects directly to a self-hosted **Chatwoot Open Source** instance (including the open-source WhatsApp and operational enhancements from [`fazer-ai/chatwoot`](https://github.com/fazer-ai/chatwoot)). Rather than treating each messaging platform as a separate silo, Chatwoot centralizes **Website Live Chat, WhatsApp, Instagram, Facebook, Email, and other channels** inside one workspace where every channel is handled on equal footing:
 
+- **Channel Equality & Centralized Queue**: Whether a customer starts on the website widget, replies to an Instagram DM, or sends a WhatsApp voice note, the conversation follows the exact same routing, automation rules, SLAs, and AI/human tooling.
+- **Persistent Unified Customer Profiles**: Every interaction across channels is tied back to a single customer profile—preserving conversation history, scent preferences, custom attributes, tags, and order context even when the buyer switches from Instagram to WhatsApp or the web storefront.
+- **Self-Reinforcing Sales Funnel**: Incoming conversations automatically enter a structured sales pipeline. As the AI agent or human team qualifies the lead, closes an order, and follows up post-purchase, the resulting purchase history and preferences continuously enrich the customer profile—powering smarter recommendations, targeted re-engagement, and repeat sales that feed right back into the funnel.
 - **Dynamic Widget Integration (`ChatWidget.tsx`)**: Reads the Chatwoot base URL and website token dynamically from CMS settings or environment variables, keeping the live concierge available across every page.
 - **Programmatic Conversation Handshake (`/api/chatwoot/pedir`)**: When a visitor requests an out-of-stock fragrance or schedules a consultation, the backend opens a Chatwoot conversation via API with the exact product context, receives the session `authToken` JWT, and hands it to the browser so the chat widget opens right inside that active thread.
 
 ### Key Open-Source Chatwoot Capabilities
-- **Omnichannel Inbox**: Unifies Website Live Chat, WhatsApp (native QR connector or official Cloud API), Email, Instagram, and Facebook in one queue.
+- **Unified Omnichannel Inbox**: Website Live Chat, WhatsApp (native QR connector or official Cloud API), Instagram, Facebook, Email, and API channels treated equally under one roof.
+- **Customer CRM & Enrichment**: Persistent contact profiles, custom contact/conversation attributes, interaction timelines, labels, and personal or global custom filters.
 - **Team Collaboration & Routing**: Multi-agent queues, team assignment, conversation locking, collision prevention, and internal team chat with threads and mentions.
-- **Productivity & Automation**: Canned responses, custom contact/conversation attributes, personal and global custom filters, labels, scheduled/recurring messages, and automated triggers (including idle-conversation rules).
+- **Productivity & Automation**: Canned responses, scheduled/recurring messages, and automated triggers (including idle-conversation and message-edit rules).
 - **Integrations & White-Labeling**: Per-inbox webhooks with retries, observer bots (for silent classification/QA), S3-compatible media storage (MinIO/R2), custom branding, and native connection to `fazer.ai agents`.
 
 ---
