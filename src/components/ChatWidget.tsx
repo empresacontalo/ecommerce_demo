@@ -63,8 +63,8 @@ export async function abrirChatComMensagem({ nome, descricao, mensagem }: { nome
  */
 export async function abrirChatAgendamento() {
   await abrirChatComMensagem({
-    nome: 'Atendimento',
-    mensagem: 'Olá! Gostaria de mais informações. 😊',
+    nome: 'Concierge',
+    mensagem: 'Hello! I would like more information about your fragrances. ✨',
   });
 }
 

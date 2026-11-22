@@ -7,11 +7,11 @@ import { EMPRESA_NOME_PADRAO } from '@/utils/empresa-default';
 
 export default function Footer() {
   const [linksVisiveis, setLinksVisiveis] = useState<{ href: string; label: string }[]>([
-    { href: '/', label: 'Home' }, { href: '/sobre', label: 'Sobre Nós' },
-    { href: '/catalogo', label: 'Catálogo' },
-    { href: '/encontre-seu-cheiro', label: 'Encontre seu Cheiro' },
-    { href: '/galeria', label: 'Galeria' },
-    { href: '/auth/login', label: 'Minha Conta' },
+    { href: '/', label: 'Home' }, { href: '/sobre', label: 'About Us' },
+    { href: '/catalogo', label: 'Catalog' },
+    { href: '/encontre-seu-cheiro', label: 'Find Your Scent' },
+    { href: '/galeria', label: 'Gallery' },
+    { href: '/auth/login', label: 'My Account' },
   ]);
   const [dados, setDados] = useState<{
     nome: string; nomeParte1: string; nomeResto: string; subtitulo: string;
@@ -101,7 +101,7 @@ export default function Footer() {
 
             {/* Col 2 — Links */}
             <div className="footer-col">
-              <h4 className="footer-heading">Links Rápidos</h4>
+              <h4 className="footer-heading">Quick Links</h4>
               <ul className="footer-links">
                 {linksVisiveis.map(l => (
                   <li key={l.href}><Link href={l.href}>{l.label}</Link></li>
@@ -111,7 +111,7 @@ export default function Footer() {
 
             {/* Col 3 — Location */}
             <div className="footer-col">
-              <h4 className="footer-heading">Localização</h4>
+              <h4 className="footer-heading">Location</h4>
               <address className="footer-address">
                 {end.linha1 && <p>{end.linha1}</p>}
                 {end.linha2 && <p>{end.linha2}</p>}
@@ -127,14 +127,14 @@ export default function Footer() {
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`Localização ${nome}`}
+                  title={`${nome} location`}
                 />
               </div>
             </div>
 
             {/* Col 4 — Contact */}
             <div className="footer-col">
-              <h4 className="footer-heading">Contato</h4>
+              <h4 className="footer-heading">Contact</h4>
               <ul className="footer-contact">
                 {tel.link && <li>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -152,7 +152,7 @@ export default function Footer() {
               {(hr.semana || hr.sabado) && (
                 <div className="footer-hours">
                   <h5 style={{ fontSize: 'var(--text-sm)', fontFamily: 'var(--font-body)', fontWeight: 600, marginBottom: '0.5rem', marginTop: '1rem' }}>
-                    Horário de Funcionamento
+                    Business Hours
                   </h5>
                   {hr.semana && <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-tertiary)', margin: 0 }}>{hr.semana}</p>}
                   {hr.sabado && <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-tertiary)', margin: 0 }}>{hr.sabado}</p>}
@@ -168,11 +168,11 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-inner">
-            <p>© {new Date().getFullYear()} {nome}. Todos os direitos reservados.</p>
+            <p>© {new Date().getFullYear()} {nome}. All rights reserved.</p>
             <div className="footer-legal">
-              <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+              <Link href="/politica-de-privacidade">Privacy Policy</Link>
               <span>·</span>
-              <Link href="/termos-de-uso">Termos de Uso</Link>
+              <Link href="/termos-de-uso">Terms of Use</Link>
             </div>
           </div>
         </div>

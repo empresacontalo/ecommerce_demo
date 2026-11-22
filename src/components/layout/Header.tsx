@@ -12,10 +12,10 @@ import CtaButton from '@/components/CtaButton';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home', slug: 'home' },
-  { href: '/sobre', label: 'Sobre', slug: 'sobre' },
-  { href: '/catalogo', label: 'Catálogo', slug: 'catalogo' },
-  { href: '/encontre-seu-cheiro', label: 'Encontre seu Cheiro', slug: 'encontre-seu-cheiro' },
-  { href: '/galeria', label: 'Galeria', slug: 'galeria' },
+  { href: '/sobre', label: 'About', slug: 'sobre' },
+  { href: '/catalogo', label: 'Catalog', slug: 'catalogo' },
+  { href: '/encontre-seu-cheiro', label: 'Find Your Scent', slug: 'encontre-seu-cheiro' },
+  { href: '/galeria', label: 'Gallery', slug: 'galeria' },
 ];
 
 const SLUG_TO_HREF: Record<string, string> = {
@@ -142,7 +142,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="header-nav" aria-label="Navegação principal">
+          <nav className="header-nav" aria-label="Main navigation">
             {linksVisiveis.map(link => (
               <Link
                 key={link.href}
@@ -157,10 +157,10 @@ export default function Header() {
           {/* Actions */}
           <div className="header-actions">
             <CtaButton href="chat:atendimento" className="btn btn-primary btn-sm header-cta">
-              Fale pelo Chat
+              Chat With Us
             </CtaButton>
 
-            <Link href={profileHref} className="header-icon" aria-label="Minha conta" style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center' }}>
+            <Link href={profileHref} className="header-icon" aria-label="My account" style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center' }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
               </svg>
@@ -172,8 +172,8 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="header-icon"
-                aria-label="Painel administrativo"
-                title="Painel administrativo"
+                aria-label="Admin panel"
+                title="Admin panel"
                 style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center' }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -183,7 +183,7 @@ export default function Header() {
               </a>
             )}
 
-            <button className="header-cart" onClick={openCart} aria-label="Carrinho de compras">
+            <button className="header-cart" onClick={openCart} aria-label="Shopping cart">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
@@ -195,7 +195,7 @@ export default function Header() {
             <button
               className={`header-hamburger ${drawerOpen ? 'open' : ''}`}
               onClick={() => setDrawerOpen(!drawerOpen)}
-              aria-label={drawerOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={drawerOpen}
             >
               <span /><span /><span />
@@ -249,7 +249,7 @@ export default function Header() {
               style={{ color: 'var(--color-gold)', fontWeight: 600 }}
               onClick={() => setDrawerOpen(false)}
             >
-              Minha Conta
+              My Account
             </Link>
           )}
 
@@ -260,7 +260,7 @@ export default function Header() {
               rel="noopener noreferrer"
               style={{ color: 'var(--color-gold)', fontWeight: 600 }}
             >
-              ⚙️ Painel Administrativo
+              ⚙️ Admin Panel
             </a>
           )}
 
@@ -282,7 +282,7 @@ export default function Header() {
                 fontWeight: 500
               }}
             >
-              Sair da Conta
+              Sign Out
             </button>
           )}
 
@@ -292,7 +292,7 @@ export default function Header() {
             style={{ marginTop: 'var(--spacing-md)', textAlign: 'center' }}
             onClick={() => setDrawerOpen(false)}
           >
-            Fale com a Loja
+            Chat With Us
           </CtaButton>
         </div>
 

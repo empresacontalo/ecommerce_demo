@@ -57,9 +57,9 @@ export default function SiteModeBanner() {
 
   return (
     <div ref={bannerRef} className="test-mode-banner" role="alert">
-      <span aria-hidden="true">⚠️</span>
-      <span>Site em desenvolvimento - em breve esta tarja será removida e você poderá realizar suas compras</span>
-      <span aria-hidden="true">🛒</span>
+      <span aria-hidden="true">✨</span>
+      <span>Demonstration Showcase — Exploring luxury fragrance collection in preview mode. Checkout and concierge chat active for testing.</span>
+      <span aria-hidden="true">🛍️</span>
     </div>
   );
 }

@@ -16,9 +16,9 @@ export default function CartSidebar() {
     const ok = await applyCoupon(couponInput);
     setAplicando(false);
     if (ok) {
-      setCouponMsg({ type: 'success', text: `Cupom aplicado! ${discount}% OFF` });
+      setCouponMsg({ type: 'success', text: `Coupon applied! ${discount}% OFF` });
     } else {
-      setCouponMsg({ type: 'error', text: 'Cupom inválido ou campanha encerrada' });
+      setCouponMsg({ type: 'error', text: 'Invalid coupon or expired campaign' });
     }
     setTimeout(() => setCouponMsg(null), 4000);
   };
@@ -29,14 +29,14 @@ export default function CartSidebar() {
       <div className={`cart-overlay ${isOpen ? 'active' : ''}`} onClick={closeCart} />
 
       {/* Sidebar */}
-      <aside className={`cart-sidebar ${isOpen ? 'open' : ''}`} aria-label="Carrinho de compras">
+      <aside className={`cart-sidebar ${isOpen ? 'open' : ''}`} aria-label="Shopping cart">
         {/* Header */}
         <div className="cart-sidebar-header">
           <h3>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Carrinho ({totalItems})
+            Cart ({totalItems})
           </h3>
-          <button className="cart-close-btn" onClick={closeCart} aria-label="Fechar carrinho">✕</button>
+          <button className="cart-close-btn" onClick={closeCart} aria-label="Close cart">✕</button>
         </div>
 
         {/* Body */}
@@ -44,10 +44,10 @@ export default function CartSidebar() {
           {items.length === 0 ? (
             <div className="cart-empty">
               <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-lg)' }}>🛒</div>
-              <h4>Carrinho vazio</h4>
-              <p>Explore nosso catálogo de perfumes árabes e encontre a sua fragrância!</p>
+              <h4>Your cart is empty</h4>
+              <p>Explore our luxury fragrance collection and find your signature scent.</p>
               <Link href="/catalogo" className="btn btn-primary" onClick={closeCart}>
-                Ver Catálogo
+                Explore Catalog
               </Link>
             </div>
           ) : (
@@ -72,7 +72,7 @@ export default function CartSidebar() {
                       <span className="cart-item-price">R$ {(item.price * item.quantity).toLocaleString('pt-BR')}</span>
                     </div>
                   </div>
-                  <button className="cart-item-remove" onClick={() => removeItem(item.id, item.length, item.color)} aria-label="Remover item">
+                  <button className="cart-item-remove" onClick={() => removeItem(item.id, item.length, item.color)} aria-label="Remove item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   </button>
                 </div>
@@ -83,14 +83,14 @@ export default function CartSidebar() {
                 <div style={{ display: 'flex', gap: 'var(--spacing-xs)' }}>
                   <input
                     className="input"
-                    placeholder="Cupom de desconto"
+                    placeholder="Discount code"
                     value={couponInput}
                     onChange={e => setCouponInput(e.target.value)}
                     style={{ flex: 1, padding: '0.5rem 0.75rem', fontSize: 'var(--text-sm)' }}
                     disabled={!!coupon}
                   />
                   <button className="btn btn-ghost btn-sm" onClick={handleCoupon} disabled={!!coupon || aplicando}>
-                    {aplicando ? '…' : coupon ? '✓' : 'Aplicar'}
+                    {aplicando ? '…' : coupon ? '✓' : 'Apply'}
                   </button>
                 </div>
                 {couponMsg && (
@@ -100,9 +100,9 @@ export default function CartSidebar() {
                 )}
                 {coupon && (
                   <p style={{ fontSize: 'var(--text-xs)', marginTop: 4, color: 'var(--color-success)' }}>
-                    ✅ {coupon} — {discount}% de desconto
-                    {cupomInfo?.escopo === 'marca' && ` apenas em ${cupomInfo.marca}`}
-                    {cupomInfo?.escopo === 'produtos' && ` apenas em produtos selecionados`}
+                    ✅ {coupon} — {discount}% off
+                    {cupomInfo?.escopo === 'marca' && ` on ${cupomInfo.marca} only`}
+                    {cupomInfo?.escopo === 'produtos' && ` on selected products only`}
                   </p>
                 )}
               </div>
@@ -115,7 +115,7 @@ export default function CartSidebar() {
           <div className="cart-sidebar-footer">
             {discount > 0 && (
               <div className="cart-summary-row">
-                <span>Desconto ({discount}%)</span>
+                <span>Discount ({discount}%)</span>
                 <span style={{ color: 'var(--color-success)' }}>
                   -R$ {Math.max(0, items.reduce((s, i) => s + i.price * i.quantity, 0) - totalPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 </span>
@@ -126,10 +126,10 @@ export default function CartSidebar() {
               <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
             </div>
             <Link href="/loja/checkout" className="btn btn-gold btn-lg" onClick={closeCart} style={{ width: '100%' }}>
-              Finalizar Compra
+              Checkout
             </Link>
             <Link href="/loja/carrinho" className="btn btn-ghost btn-sm" onClick={closeCart} style={{ width: '100%' }}>
-              Ver Carrinho Completo
+              View Full Cart
             </Link>
           </div>
         )}

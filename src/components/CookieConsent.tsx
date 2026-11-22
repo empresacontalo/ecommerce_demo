@@ -34,22 +34,22 @@ export default function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className={`cookie-banner ${visible ? 'visible' : ''}`} role="dialog" aria-label="Consentimento de cookies">
+    <div className={`cookie-banner ${visible ? 'visible' : ''}`} role="dialog" aria-label="Cookie consent">
       <div className="cookie-inner">
         <div className="cookie-text">
-          <h4>🍪 Sua privacidade importa</h4>
+          <h4>🍪 Your Privacy Matters</h4>
           <p>
-            Utilizamos cookies para melhorar sua experiência e personalizar conteúdo.
-            Ao clicar em &quot;Aceitar todos&quot;, você concorda com o uso de cookies conforme nossa{' '}
-            <a href="/politica-de-privacidade" style={{ color: 'var(--color-primary)' }}>Política de Privacidade</a>.
+            We use cookies to optimize your browsing experience and personalize content.
+            By clicking &quot;Accept All&quot;, you consent to our use of cookies under our{' '}
+            <a href="/politica-de-privacidade" style={{ color: 'var(--color-primary)' }}>Privacy Policy</a>.
           </p>
         </div>
         <div className="cookie-actions">
           <button className="btn btn-ghost btn-sm" onClick={acceptEssential}>
-            Apenas essenciais
+            Essential Only
           </button>
           <button className="btn btn-primary btn-sm" onClick={acceptAll}>
-            Aceitar todos
+            Accept All
           </button>
         </div>
       </div>
