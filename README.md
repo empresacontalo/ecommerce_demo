@@ -64,14 +64,32 @@ Running live at **[demo.digitalarea.online](https://demo.digitalarea.online)**, 
 - **Customer Portal (`/minha-conta`)**: Secure registration and login using JWT + bcrypt and Google OAuth (`/api/auth/google`), order history with tracking links, and saved shipping addresses.
 - **Curated Gallery (`/galeria`)**: High-resolution catalog photography managed directly from the admin panel.
 
-### Administrative Console (`/admin`)
-- **Operations Dashboard**: Sales overview, active orders, leads, and system health.
-- **Catalog, Orders & Tracking**: Full CRUD for products, stock levels, order status updates, and shipment tracking links.
-- **Campaigns, Leads & Paid Traffic**: Promotional banners with AI-assisted copy support, automatic coupon binding, lead-to-order conversion tracking, and **per-route Google Tags injection** via Next.js middleware (`x-pathname`).
-- **Site Snapshots & Automated Backups**: Scheduled database/asset backups (`/api/cron/backup`) stored on persistent Docker volumes, plus on-demand site snapshots and instant CMS rollback.
-- **Governance & Security Controls**: Audit logs (`/admin/auditoria`), configurable API rate limiting (`/admin/configuracoes/limites`), role-based admin user management, **encrypted runtime environment overrides with drift detection**, and scoped MCP token management (`/admin/mcp-tokens`).
+---
 
-### Built-In 57-Tool MCP Server (`/api/mcp`)
+## Administrative Control Panel (`/admin`)
+
+The platform includes a full operational back-office protected by JWT session guards (`admin-session-guard.ts`), allowing store operators to run the entire business—from storefront layout to runtime security—without touching code or redeploying containers. Almost every module below is also mirrored in the built-in `/api/mcp` server, so human operators and authorized AI agents share the exact same governed capabilities.
+
+| Module | Route | What It Controls |
+| :--- | :--- | :--- |
+| **Operations Dashboard** | `/admin` | Live overview of sales volume, active orders, incoming leads, and store health. |
+| **Products & Inventory** | `/admin/produtos` | Full product CRUD, pricing, stock levels, brand ordering, and `sharp`-optimized image uploads. |
+| **Orders & Tracking** | `/admin/pedidos` | Order lifecycle management, Asaas payment status, shipment tracking codes/links, and transactional customer emails. |
+| **Campaigns & Coupons** | `/admin/campanhas` | Promotional banners, AI-assisted campaign creation (`campanhas-ia.ts`), coupon rules, and lead-capture forms. |
+| **Leads & Funnel** | `/admin/leads` | Lead tracking, lead-to-order conversion pipeline (`lead-pedido.ts`), and automated sales funnel integration. |
+| **Appointments** | `/admin/agendamentos` | Scheduling and management of customer consultations and follow-up requests. |
+| **Dynamic CMS & Drafts** | `/admin/conteudo` | Edit pages, modular content blocks, testimonials, and SEO metadata with draft preview support (`admin-draft.ts`). |
+| **Carousel & Gallery** | `/admin/carrossel` · `/admin/galeria` | Manage homepage hero slides, curated fragrance photography, and site favicon dynamically. |
+| **Paid Traffic & Google Tags** | `/admin/trafego-pago` | Configure Google Ads, GA4, and Tag Manager scripts injected per route via Next.js middleware (`x-pathname`). |
+| **Backups & Snapshots** | `/admin/backups` | Automated scheduled backups (`/api/cron/backup`) to persistent `/backups` storage, plus on-demand site snapshots and instant CMS rollback. |
+| **Audit Trail** | `/admin/auditoria` | Structured audit log recording who changed what and when across administrative and MCP operations. |
+| **Settings & Commercial Rules** | `/admin/configuracoes` | Store identity, Chatwoot/WhatsApp connectors, payment-method discount rules, shipping tables, and **encrypted runtime environment overrides with drift detection** (`environment-crypto.ts`). |
+| **API Rate Limits** | `/admin/configuracoes/limites` | Configurable per-endpoint rate limiting to protect checkout, auth, and public APIs from abuse. |
+| **Users, Access & MCP Tokens** | `/admin/configuracoes/usuarios` · `/admin/solicitar-acesso` | Admin user governance, access-request workflow, and scoped Bearer token management for `/api/mcp`. |
+
+---
+
+## Built-In 57-Tool MCP Server (`/api/mcp`)
 Instead of bolting AI onto the frontend as a simple FAQ widget, the application ships with a **Streamable HTTP Model Context Protocol server** (`@modelcontextprotocol/sdk`) authenticated via scoped Bearer tokens. Any MCP-compatible agent (`fazer.ai agents`, Claude, Cursor, or custom orchestrators) can safely operate the store:
 
 - **End-to-End Autonomous Sales**: `consultar_produto`, `calcular_entrega`, `registrar_cliente`, `registrar_endereco`, `dar_baixa_produto`, `realizar_venda`, and `atualizar_rastreio_pedido`.
