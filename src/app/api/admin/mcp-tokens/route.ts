@@ -6,12 +6,15 @@ import { registrarAuditoria } from '@/utils/audit';
 
 export async function GET() {
   const admin = await getAdminSession();
-  if (!admin) return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (admin.readOnly) {
+    return NextResponse.json({ tokens: [], readOnlyRedacted: true });
+  }
   try {
     return NextResponse.json({ tokens: await listarTokens() });
   } catch (err) {
     console.error('[mcp-tokens] GET:', err);
-    return NextResponse.json({ error: 'Erro interno do servidor.' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error.' }, { status: 500 });
   }
 }
 

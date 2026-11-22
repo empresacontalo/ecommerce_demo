@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/auth/server'
 import { query } from '@/utils/db'
+import { isReadOnlyEmail } from '@/utils/auth/admin'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
@@ -22,7 +23,12 @@ export async function GET() {
       return NextResponse.json({ isAdmin: false, reason: 'not_approved' })
     }
 
-    return NextResponse.json({ isAdmin: true, userId: user.id })
+    return NextResponse.json({
+      isAdmin: true,
+      readOnly: isReadOnlyEmail(user.email),
+      userId: user.id,
+      email: user.email,
+    })
   } catch (err: any) {
     console.error('[check-admin] Unexpected error:', err.message)
     return NextResponse.json({ isAdmin: false, reason: 'error', message: err.message }, { status: 500 })

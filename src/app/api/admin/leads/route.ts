@@ -14,7 +14,15 @@ export async function GET() {
       'SELECT * FROM public.leads ORDER BY created_at DESC'
     )
 
-    return NextResponse.json(rows)
+    const safeRows = admin.readOnly
+      ? rows.map((r: any) => ({
+          ...r,
+          email: r.email ? String(r.email).replace(/(^.).*(@.*$)/, '$1***$2') : null,
+          phone: r.phone ? '***-***-' + String(r.phone).slice(-4) : null,
+        }))
+      : rows
+
+    return NextResponse.json(safeRows)
   } catch (err: any) {
     console.error('Erro inesperado na API Admin Leads:', err)
     return NextResponse.json({ error: err.message || 'Internal Server Error' }, { status: 500 })

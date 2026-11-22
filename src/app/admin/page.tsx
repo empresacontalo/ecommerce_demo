@@ -30,15 +30,15 @@ const STATUS_BADGE: Record<string, string> = {
 };
 
 const STATUS_LABEL: Record<string, string> = {
-  RECEBIDO: 'Pagamento recebido',
-  APROVADO: 'Aprovado',
-  EM_PREPARACAO: 'Em preparação',
-  ENVIADO: 'Enviado',
-  CANCELADO: 'Cancelado',
-  DEVOLUCAO: 'Em devolução',
+  RECEBIDO: 'Payment Received',
+  APROVADO: 'Approved',
+  EM_PREPARACAO: 'Preparing',
+  ENVIADO: 'Shipped',
+  CANCELADO: 'Canceled',
+  DEVOLUCAO: 'Returned',
 };
 
-const fmtBRL = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtCurrency = (v: number) => v.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
 export default function AdminDashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -53,11 +53,11 @@ export default function AdminDashboard() {
   }, []);
 
   const stats = [
-    { label: 'Vendas (Mês)', value: data ? fmtBRL(data.vendas_mes) : '—', icon: '💵', href: '/admin/pedidos' },
-    { label: 'Pedidos', value: data?.total_pedidos ?? '—', icon: '📦', href: '/admin/pedidos' },
-    { label: 'Clientes', value: data?.total_clientes ?? '—', icon: '👥', href: '/admin/configuracoes/usuarios' },
-    { label: 'Leads Novos', value: data?.leads_novos ?? '—', icon: '⭐', href: '/admin/leads' },
-    { label: 'Agendamentos Hoje', value: data?.agendamentos_hoje ?? '—', icon: '📅', href: '/admin/agendamentos' },
+    { label: 'Monthly Sales', value: data ? fmtCurrency(data.vendas_mes) : '—', icon: '💵', href: '/admin/pedidos' },
+    { label: 'Orders', value: data?.total_pedidos ?? '—', icon: '📦', href: '/admin/pedidos' },
+    { label: 'Customers', value: data?.total_clientes ?? '—', icon: '👥', href: '/admin/configuracoes/usuarios' },
+    { label: 'New Leads', value: data?.leads_novos ?? '—', icon: '⭐', href: '/admin/leads' },
+    { label: 'Appointments Today', value: data?.agendamentos_hoje ?? '—', icon: '📅', href: '/admin/agendamentos' },
   ];
 
   return (
@@ -75,14 +75,14 @@ export default function AdminDashboard() {
       </div>
 
       <div className="admin-card">
-        <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>Últimos Pedidos</h3>
+        <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>Recent Orders</h3>
         <div className="table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Pedido</th>
-                <th>Data</th>
-                <th>Cliente</th>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Customer</th>
                 <th>Status</th>
                 <th>Total</th>
               </tr>
@@ -91,16 +91,16 @@ export default function AdminDashboard() {
               {(data?.ultimos_pedidos || []).map(p => (
                 <tr key={p.id}>
                   <td style={{ fontFamily: 'monospace', fontSize: 'var(--text-sm)' }}>#{p.id.slice(0, 8)}</td>
-                  <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(p.created_at).toLocaleDateString('pt-BR')}</td>
+                  <td style={{ fontSize: 'var(--text-sm)' }}>{new Date(p.created_at).toLocaleDateString('en-US')}</td>
                   <td style={{ fontWeight: 500 }}>{p.customer_name}</td>
                   <td><span className={`badge ${STATUS_BADGE[p.status] || 'badge-secondary'}`}>{STATUS_LABEL[p.status] || p.status}</span></td>
-                  <td style={{ fontWeight: 600 }}>{fmtBRL(Number(p.total_price))}</td>
+                  <td style={{ fontWeight: 600 }}>{fmtCurrency(Number(p.total_price))}</td>
                 </tr>
               ))}
               {(!data || data.ultimos_pedidos.length === 0) && (
                 <tr>
                   <td colSpan={5} style={{ color: 'var(--color-text-tertiary)', textAlign: 'center' }}>
-                    Nenhum pedido ainda. <Link href="/loja/checkout" style={{ color: 'var(--color-gold)' }}>Fazer um pedido de teste</Link>
+                    No orders yet. <Link href="/loja/checkout" style={{ color: 'var(--color-gold)' }}>Place a test order</Link>
                   </td>
                 </tr>
               )}

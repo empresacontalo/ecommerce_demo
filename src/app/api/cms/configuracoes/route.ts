@@ -16,21 +16,22 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const chave = searchParams.get('chave');
     const admin = await getAdminSession();
+    const canViewSensitive = !!admin && !admin.readOnly;
 
     if (chave) {
-      if (!admin && chaveSensivel(chave)) {
-        return NextResponse.json({ error: 'Não encontrada' }, { status: 404 });
+      if (!canViewSensitive && chaveSensivel(chave)) {
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
       }
       const result = await query(
         'SELECT * FROM public.configuracoes WHERE chave = $1',
         [chave]
       );
-      if (result.rows.length === 0) return NextResponse.json({ error: 'Não encontrada' }, { status: 404 });
+      if (result.rows.length === 0) return NextResponse.json({ error: 'Not found' }, { status: 404 });
       return NextResponse.json(result.rows[0]);
     }
 
     const result = await query('SELECT * FROM public.configuracoes ORDER BY chave ASC');
-    const rows = admin ? result.rows : result.rows.filter((r) => !chaveSensivel(r.chave));
+    const rows = canViewSensitive ? result.rows : result.rows.filter((r) => !chaveSensivel(r.chave));
     return NextResponse.json(rows);
   } catch (err) {
     console.error('Erro ao buscar configs:', err);

@@ -64,7 +64,16 @@ export async function GET(req: NextRequest) {
     sql += ` LIMIT ${Math.min(Math.max(limite, 1), 1000)}`;
 
     const result = await query(sql, params);
-    return NextResponse.json(result.rows);
+    const safeRows = admin.readOnly
+      ? result.rows.map((r: any) => ({
+          ...r,
+          customer_email: r.customer_email ? String(r.customer_email).replace(/(^.).*(@.*$)/, '$1***$2') : null,
+          customer_phone: r.customer_phone ? '***-***-' + String(r.customer_phone).slice(-4) : null,
+          customer_cpf: r.customer_cpf ? '***.***.***-**' : null,
+          shipping_address: r.shipping_address ? '[Redacted in read-only demo]' : null,
+        }))
+      : result.rows;
+    return NextResponse.json(safeRows);
   } catch (err) {
     console.error('Erro ao listar pedidos:', err);
     return NextResponse.json({ error: 'Erro interno do servidor.' }, { status: 500 });

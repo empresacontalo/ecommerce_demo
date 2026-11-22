@@ -70,6 +70,13 @@ Running live at **[demo.digitalarea.online](https://demo.digitalarea.online)**, 
 
 The platform includes a full operational back-office protected by JWT session guards (`admin-session-guard.ts`), allowing store operators to run the entire business—from storefront layout to runtime security—without touching code or redeploying containers. Almost every module below is also mirrored in the built-in `/api/mcp` server, so human operators and authorized AI agents share the exact same governed capabilities.
 
+> **Try the Live Admin Panel (Read-Only Evaluator Access):**  
+> - **URL:** [https://demo.digitalarea.online/admin](https://demo.digitalarea.online/admin)  
+> - **Email:** `demo@aurafragrances.demo`  
+> - **Password:** `DemoView2026!`  
+>
+> *Security note: This demo account is strictly **read-only** and enforced server-side in middleware (`HTTP 403` on all `POST`/`PUT`/`PATCH`/`DELETE` requests). Sensitive credentials, MCP tokens, backup downloads, and customer PII are automatically redacted or blocked.*
+
 | Module | Route | What It Controls |
 | :--- | :--- | :--- |
 | **Operations Dashboard** | `/admin` | Live overview of sales volume, active orders, incoming leads, and store health. |

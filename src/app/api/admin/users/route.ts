@@ -4,6 +4,7 @@ import { query } from '@/utils/db'
 import { hashPassword } from '@/utils/auth/password'
 import { notificarNovoAdmin } from '@/lib/admin-notify'
 import { registrarAuditoria } from '@/utils/audit'
+import { isReadOnlyEmail } from '@/utils/auth/admin'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -119,8 +120,17 @@ export async function GET(req: NextRequest) {
     sql += ' ORDER BY created_at DESC'
 
     const { rows } = await query(sql, params)
+    const readOnly = isReadOnlyEmail(admin.email)
+    const safeRows = readOnly
+      ? rows.map((r: any) => ({
+          ...r,
+          email: isReadOnlyEmail(r.email)
+            ? r.email
+            : String(r.email || '').replace(/(^.).*(@.*$)/, '$1***$2'),
+        }))
+      : rows
 
-    return NextResponse.json(rows)
+    return NextResponse.json(safeRows)
   } catch (err: any) {
     console.error('[Admin/Users] GET Error:', err.message)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
